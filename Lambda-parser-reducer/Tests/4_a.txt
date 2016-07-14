@@ -1,0 +1,31 @@
+Expression:
+\1.\2.1 2 -1
+
+Tree:
+Abs/-- 1
+   |
+   \__Abs/-- 2
+         |
+         \__App/--App/-- 1
+               |     |
+               |     \__ 2
+               |
+               \__ -1
+
+Reduced expression:
+\1.\2.1 2 -1
+
+Tree:
+Abs/-- 1
+   |
+   \__Abs/-- 2
+         |
+         \__App/--App/-- 1
+               |     |
+               |     \__ 2
+               |
+               \__ -1
+
+Blocks in memory:
+0
+

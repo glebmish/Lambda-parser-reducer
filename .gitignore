@@ -1,0 +1,6 @@
+Debug/
+*.sln
+*.db
+Lambda-parser-reducer/Debuf
+Lambda-parser-reducer/*.vcxproj*
+.vs/
