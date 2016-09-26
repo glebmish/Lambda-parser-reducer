@@ -4,9 +4,12 @@
 using namespace std;
 
 #include "Calculation/Calc.h"
+#include "Tests/Test.h"
 
+int main(int argc, char *argv[]) {
+    if (argc > 1 && string(argv[1]) == string("test"))
+        test(cout);
 
-int main() {
     istream &in = cin;
     ostream &out = cout;
 

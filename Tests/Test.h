@@ -1,7 +1,9 @@
-#include <fstream>
+#include <istream>
+#include <ostream>
+#include <dirent.h>
+#include <vector>
 #include <string>
 
 #include "../Calculation/Calc.h"
 
-bool check(std::ifstream& ans, std::ifstream& curAns);
-bool check(std::ifstream& ans, std::ifstream& curAns); 
+void test(ostream &log);

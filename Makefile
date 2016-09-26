@@ -1,3 +1,3 @@
 all:
-	g++ Main.cpp Entities/*.cpp Calculation/*.cpp MemoryManagement/*.cpp Parsing/*.cpp -o lbr.out
+	g++ Main.cpp Entities/*.cpp Calculation/*.cpp MemoryManagement/*.cpp Parsing/*.cpp Tests/*.cpp -o lbr.out
 
