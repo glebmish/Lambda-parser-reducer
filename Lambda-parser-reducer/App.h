@@ -8,27 +8,27 @@ using namespace std;
 #include "Pool.h"
 
 class App : public Node {
-	Node* l;
-	Node* r;
-public:
+    Node* l;
+    Node* r;
+    public:
 
-	App(Node* ll, Node* rr): l(ll), r(rr) {}
+    App(Node* ll, Node* rr): l(ll), r(rr) {}
 
-	void* operator new (size_t n, Pool* pool);
-	void operator delete (void* ptr, Pool* pool) {free(ptr);}
+    void* operator new (size_t n, Pool* pool);
+    void operator delete (void* ptr, Pool* pool) {free(ptr);}
 
-	void getexp(ostream& out, bool isapp = false, bool isleft = false);
-	void gettree(ostream& out, bool isDebug = 0, int = 0, list<int> = list<int>());
+    void getexp(ostream& out, bool isapp = false, bool isleft = false);
+    void gettree(ostream& out, bool isDebug = 0, int = 0, list<int> = list<int>());
 
-	string saymyname();
-	int getvalue();
-	
-	Node* reduce(Pool* pool);
-	bool isredex();
-	Node* substitute(Pool* pool, int, int, Node*);
-	Node* changeprior(Pool* pool, int, map<int, int> = map<int,int>());
+    string saymyname();
+    int getvalue();
 
-	Node* copy(Pool* pool);
+    Node* reduce(Pool* pool);
+    bool isredex();
+    Node* substitute(Pool* pool, int, int, Node*);
+    Node* changeprior(Pool* pool, int, map<int, int> = map<int,int>());
 
-	~App() {delete l; delete r;}
+    Node* copy(Pool* pool);
+
+    ~App() {delete l; delete r;}
 };

@@ -10,26 +10,26 @@ using namespace std;
 #define MAX_BLOCKS 2
 
 class PoolBlock {
-public:
-	static int blocksInMemory;
+    public:
+        static int blocksInMemory;
 
-	PoolBlock* next;
-	char* shift;
-	char* data;
+        PoolBlock* next;
+        char* shift;
+        char* data;
 
-	PoolBlock();
+        PoolBlock();
 
-	~PoolBlock();
+        ~PoolBlock();
 };
 
 class Pool {
-public:
-	PoolBlock* cur;
-	int blockCt;
+    public:
+        PoolBlock* cur;
+        int blockCt;
 
-	Pool(): cur(NULL), blockCt(0) {}
+        Pool(): cur(NULL), blockCt(0) {}
 
-	void* palloc(size_t n);
+        void* palloc(size_t n);
 
-	~Pool() {delete cur;}
+        ~Pool() {delete cur;}
 };
