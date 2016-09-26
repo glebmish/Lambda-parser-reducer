@@ -1,6 +1,13 @@
-#include "Test.h"
-#include "../Logger/Logger.h"
+#include <istream>
+#include <dirent.h>
+#include <vector>
+#include <string>
+#include <algorithm>
 using namespace std;
+
+#include "Test.h"
+#include "../Calculation/Calc.h"
+#include "../Logger/Logger.h"
 
 bool check(istream &answer, istream &outputRead, ostream &log) {
     LOG(log);

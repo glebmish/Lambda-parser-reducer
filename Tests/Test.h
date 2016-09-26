@@ -1,10 +1,3 @@
-#include <istream>
 #include <ostream>
-#include <dirent.h>
-#include <vector>
-#include <string>
-#include <algorithm>
 
-#include "../Calculation/Calc.h"
-
-void test(ostream &result, ostream &log = *(new ostream(0)));
+void test(std::ostream &result, std::ostream &log = *(new std::ostream(0)));
