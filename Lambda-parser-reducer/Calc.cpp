@@ -1,7 +1,7 @@
 #include "Calc.h"
 using namespace std;
 
-void calc(ofstream& out, string exp) {
+void calc(ostream& out, string exp) {
     try {
         Tree x = Parse(exp).parse();
 

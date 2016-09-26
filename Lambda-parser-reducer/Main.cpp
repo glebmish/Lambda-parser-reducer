@@ -1,16 +1,19 @@
 #include <string>
-#include <fstream>
+#include <istream>
+#include <ostream>
 using namespace std;
 
 #include "Calc.h"
 
 
 int main() {
+    istream &in = cin;
+    ostream &out = cout;
 
-    string s = "\\m.\\n.\\f.\\x.m(\\m.\\f.\\x.m f(f x)) n f x s t q s";
+    string s;
+    in >> s;
 
-    ofstream resOut("con");
-    calc(resOut, s);
+    calc(out, s);
 
     return 0;
 }

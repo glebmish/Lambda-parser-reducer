@@ -1,10 +1,10 @@
 #pragma once
 
-#include <fstream>
+#include <ostream>
 #include <string>
 
 #include "Node.h"
 #include "Parse.h"
 #include "Pool.h"
 
-void calc(ofstream& out, string exp);
+void calc(ostream& out, string exp);
