@@ -11,7 +11,7 @@ int main() {
     ostream &out = cout;
 
     string s;
-    in >> s;
+    getline(in, s);
 
     calc(out, s);
 

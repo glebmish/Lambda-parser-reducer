@@ -1,7 +1,11 @@
 #include "App.h"
 
-void* App::operator new (size_t n, Pool* pool) {
+void *App::operator new (size_t n, Pool *pool) {
     return pool -> palloc(sizeof(App));
+}
+
+void App::operator delete(void* ptr, Pool *pool) {
+    free(ptr);
 }
 
 void App::getexp(ostream& out, bool isapp, bool isleft) {
@@ -11,7 +15,7 @@ void App::getexp(ostream& out, bool isapp, bool isleft) {
     if (isapp == true && isleft == false) out << ')';
 }
 
-void App::gettree(ostream& out, bool isDebug, int shift, std::list<int> l) {
+void App::gettree(ostream &out, bool isDebug, int shift, std::list<int> l) {
     int len;
     if (isDebug)
         len = 12;
@@ -89,7 +93,7 @@ int App::getvalue() {
     return 0;
 }
 
-Node* App::reduce(Pool* pool) {
+Node *App::reduce(Pool *pool) {
     if (l -> saymyname() == "Abs") {
         return l -> substitute(pool, 0, 0, r);
     } else {
@@ -108,14 +112,19 @@ bool App::isredex() {
         return l -> isredex() || r -> isredex();
 }
 
-Node* App::substitute(Pool* pool, int free, int who, Node* with) {
+Node *App::substitute(Pool *pool, int free, int who, Node *with) {
     return new(pool) App(l -> substitute(pool, free, who, with), r -> substitute(pool, free, who, with));
 }
 
-Node* App::changeprior(Pool* pool, int prior, map<int, int> m) {
+Node *App::changeprior(Pool *pool, int prior, map<int, int> m) {
     return new(pool) App(l -> changeprior(pool, prior, m), r -> changeprior(pool, prior, m));
 }
 
-Node* App::copy (Pool* pool) {
+Node *App::copy (Pool *pool) {
     return new(pool) App(l -> copy(pool), r -> copy(pool));
+}
+
+App::~App() {
+    delete l; 
+    delete r;
 }

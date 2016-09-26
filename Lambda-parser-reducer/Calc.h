@@ -7,4 +7,4 @@
 #include "Parse.h"
 #include "Pool.h"
 
-void calc(ostream& out, string exp);
+void calc(std::ostream& out, std::string exp);
