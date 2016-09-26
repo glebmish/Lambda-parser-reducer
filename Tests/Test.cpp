@@ -1,5 +1,5 @@
 #include "Test.h"
-#include "../Logger.cpp"
+#include "../Logger/Logger.h"
 using namespace std;
 
 bool check(istream &answer, istream &outputRead, ostream &log) {

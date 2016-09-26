@@ -6,7 +6,7 @@ using namespace std;
 
 #include "Calculation/Calc.h"
 #include "Tests/Test.h"
-#include "Logger.cpp"
+#include "./Logger/Logger.h"
 
 int main(int argc, char *argv[]) {
     bool isTest = false;
