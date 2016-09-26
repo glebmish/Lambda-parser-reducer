@@ -3,8 +3,8 @@
 #include <ostream>
 #include <string>
 
-#include "Node.h"
-#include "Parse.h"
-#include "Pool.h"
+#include "../Entities/Node.h"
+#include "../Parsing/Parse.h"
+#include "../MemoryManagement/Pool.h"
 
 void calc(std::ostream& out, std::string exp);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Node.h"
+#include "../Entities/Node.h"
 #include "Pool.h"
 
 class Tree {

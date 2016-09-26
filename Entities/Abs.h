@@ -2,19 +2,19 @@
 
 #include <string>
 #include <iostream>
-#include <streambuf>
-#include <fstream>
+#include <list>
 using namespace std;
 
 #include "Node.h"
-#include "Pool.h"
 
-class Var : public Node {
-    int s;
+class Abs : public Node {
+    int l;
+    Node *r;
+
 
     public:
 
-    Var(int ss): s(ss) {}
+    Abs(int ll, Node *rr): l(ll), r(rr) {}
 
     void *operator new (size_t n, Pool *pool);
     void operator delete (void* ptr, Pool *pool);
@@ -31,4 +31,6 @@ class Var : public Node {
     Node *changeprior(Pool *pool, int, map<int, int> = map<int,int>());
 
     Node *copy(Pool *pool);
+
+    ~Abs();
 };

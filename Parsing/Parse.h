@@ -6,10 +6,10 @@
 using namespace std;
 
 #include "Tokenizer.h"
-#include "Tree.h"
-#include "Abs.h"
-#include "App.h"
-#include "Var.h"
+#include "../MemoryManagement/Tree.h"
+#include "../Entities/Abs.h"
+#include "../Entities/App.h"
+#include "../Entities/Var.h"
 
 class ParseError {
     int ErrorPos;

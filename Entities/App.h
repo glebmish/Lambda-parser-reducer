@@ -1,26 +1,24 @@
 #pragma once
 
+#include<iostream>
 #include <string>
-#include <iostream>
-#include <list>
 using namespace std;
 
 #include "Node.h"
-#include "Pool.h"
 
-class Abs : public Node {
-    int l;
+class App : public Node {
+    Node *l;
     Node *r;
 
 
     public:
 
-    Abs(int ll, Node *rr): l(ll), r(rr) {}
+    App(Node *ll, Node *rr): l(ll), r(rr) {}
 
     void *operator new (size_t n, Pool *pool);
-    void operator delete (void* ptr, Pool *pool);
+    void operator delete (void *ptr, Pool *pool);
 
-    void getexp(ostream &out, bool isapp, bool isleft);
+    void getexp(ostream &out, bool isapp = false, bool isleft = false);
     void gettree(ostream &out, bool isDebug = 0, int = 0, list<int> = list<int>());
 
     string saymyname();
@@ -33,5 +31,5 @@ class Abs : public Node {
 
     Node *copy(Pool *pool);
 
-    ~Abs();
+    ~App();
 };
