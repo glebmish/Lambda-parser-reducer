@@ -1,9 +1,9 @@
-#include <iostream>
+#include <ostream>
 #include <string>
 #include <sstream>
 using namespace std;
 
-#define LOG DEBUG scope_logger __log__(__FUNCTION__, __FILE__) 
+#define LOG(log) scope_logger __log__(log, __FUNCTION__, __FILE__) 
 #define LOG_MESSAGE(msg) __log__.print(msg); 
 
 template < typename T > std::string to_string( const T& n )
@@ -23,24 +23,22 @@ template < typename T > std::string log_array( const T *arr, size_t size)
 
 class scope_logger
 {
-	string function, file;
-    int indent;
+    ostream &log;
+	string beginning;
+
 public:
-	scope_logger(string func, string fl)
+	scope_logger(ostream &l, string function, string file) : log(l), beginning(function + "() in " + file + ": ")
 	{
-		function = func;
-		file = fl;	
-        indent = function.length() + 4 + file.length();
-		std::cout << function << " in " << file  << ": Enter\n";
+		log << beginning << "Enter\n";
 	}
 
 	~scope_logger()
 	{
-		std::cout << function << " in " << file  << ": Exit\n";
+		log << beginning << "Exit\n";
 	}
 
 	void print (std::string msg) 
 	{
-		std::cout << string(indent, ' ') << ": " << msg << "\n";
+		log << beginning << msg << "\n";
 	}
 };
