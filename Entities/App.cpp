@@ -15,22 +15,16 @@ void App::getexp(ostream& out, bool isapp, bool isleft) {
     if (isapp == true && isleft == false) out << ')';
 }
 
-void App::gettree(ostream &out, bool isDebug, int shift, std::list<int> l) {
-    int len;
-    if (isDebug)
-        len = 12;
-    else
-        len = 3;
+void App::gettree(ostream &out, int shift, std::list<int> l) {
+    int len = 3;
 
-    if (isDebug)
-        out << this << " ";
     out << "App";
 
     l.push_back(shift + len);
 
     //out << (char) 203 << (char) 205 << (char) 205;
     out << "/--";
-    App::l -> gettree(out, isDebug, shift + len + 3, l);
+    App::l -> gettree(out, shift + len + 3, l);
 
     std::list<int> tmpl(l);
     int tmp;
@@ -81,7 +75,7 @@ void App::gettree(ostream &out, bool isDebug, int shift, std::list<int> l) {
     //out << (char) 200 << (char) 205 << (char) 205;
     out << "\\__";
     l.pop_back();
-    r -> gettree(out, isDebug, shift + len + 3, l);
+    r -> gettree(out, shift + len + 3, l);
 }
 
 

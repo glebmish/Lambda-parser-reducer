@@ -17,14 +17,9 @@ void Abs::getexp(ostream& out, bool isapp, bool isleft) {
     if (isapp == true) out << ')';
 }
 
-void Abs::gettree(ostream& out, bool isDebug, int shift, list<int> l) {
-    int len;
-    if (isDebug)
-        len = 12;
-    else len = 3;
+void Abs::gettree(ostream& out, int shift, list<int> l) {
+    int len = 3;
 
-    if (isDebug)
-        out << this << " ";
     out << "Abs";
 
     l.push_back(shift + len);
@@ -81,7 +76,7 @@ void Abs::gettree(ostream& out, bool isDebug, int shift, list<int> l) {
     }
     out << "\\__";
     l.pop_back();
-    r -> gettree(out, isDebug, shift + len + 3, l);
+    r -> gettree(out, shift + len + 3, l);
 }
 
 string Abs::saymyname() {

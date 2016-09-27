@@ -13,9 +13,7 @@ void Var::getexp(ostream &out, bool isapp, bool isleft) {
     out << s;
 }
 
-void Var::gettree(ostream &out, bool isDebug, int shift, std::list<int> l) {
-    if (isDebug)
-        out << this << " ";
+void Var::gettree(ostream &out, int shift, std::list<int> l) {
     out << ' ' << s;
 }
 

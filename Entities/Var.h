@@ -19,15 +19,15 @@ class Var : public Node {
     void operator delete (void* ptr, Pool *pool);
 
     void getexp(ostream &out, bool isapp, bool isleft);
-    void gettree(ostream &out, bool isDebug = 0, int = 0, list<int> = list<int>());
+    void gettree(ostream &out, int shift = 0, list<int> l = list<int>());
 
     string saymyname();
     int getvalue();
 
     Node *reduce(Pool *pool);
     bool isredex();
-    Node *substitute(Pool *pool, int, int, Node*);
-    Node *changeprior(Pool *pool, int, map<int, int> = map<int,int>());
+    Node *substitute(Pool *pool, int free, int who, Node *with);
+    Node *changeprior(Pool *pool, int prior, map<int, int> m = map<int,int>());
 
     Node *copy(Pool *pool);
 };
