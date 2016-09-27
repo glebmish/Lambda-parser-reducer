@@ -4,6 +4,8 @@
 #include <iostream>
 #include <streambuf>
 #include <fstream>
+#include <vector>
+#include <cstdlib>
 using namespace std;
 
 #include "Node.h"
@@ -13,13 +15,15 @@ class Var : public Node {
 
     public:
 
-    Var(int ss): s(ss) {}
+    Var(int ss): s(ss) {
+        _entName = "Var"; 
+    }
 
     void *operator new (size_t n, Pool *pool);
     void operator delete (void* ptr, Pool *pool);
 
     void get_expression(ostream &out, WrapEntity wentity, Position position);
-    void gettree(ostream &out, int shift = 0, list<int> l = list<int>());
+    vector<string> get_tree_view(int shift);
 
     string saymyname();
     int getvalue();

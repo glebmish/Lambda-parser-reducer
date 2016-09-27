@@ -5,6 +5,7 @@
 #include <streambuf>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 #include "../MemoryManagement/Pool.h"
 
@@ -20,10 +21,18 @@ enum Position {
 };
 
 class Node {
+    protected:
+
+    string _entName,
+           _horizontalFirst, 
+           _horizontalSecond,
+           _vertical;
+
     public:
+        Node();
 
         virtual void get_expression(ostream &out, WrapEntity wentity = _none, Position position = _right) = 0;
-        virtual void gettree(ostream &out, int shift = 0, list<int> l = list<int>()) = 0;
+        virtual std::vector<string> get_tree_view(int shift = 0) = 0;
 
         virtual string saymyname() = 0;
         virtual int getvalue() = 0;

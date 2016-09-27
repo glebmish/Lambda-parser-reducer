@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 #include "Node.h"
@@ -10,16 +11,17 @@ class App : public Node {
     Node *l;
     Node *r;
 
-
     public:
 
-    App(Node *ll, Node *rr): l(ll), r(rr) {}
+    App(Node *ll, Node *rr): l(ll), r(rr) {
+        _entName = "App";
+    }
 
     void *operator new (size_t n, Pool *pool);
     void operator delete (void *ptr, Pool *pool);
 
     void get_expression(ostream &out, WrapEntity wentity, Position position);
-    void gettree(ostream &out, int shift = 0, list<int> l = list<int>());
+    vector<string> get_tree_view(int shift = 0);
 
     string saymyname();
     int getvalue();
@@ -33,3 +35,4 @@ class App : public Node {
 
     ~App();
 };
+

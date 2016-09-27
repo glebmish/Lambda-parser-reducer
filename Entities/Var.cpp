@@ -15,8 +15,11 @@ void Var::get_expression(ostream &out, WrapEntity wentity, Position position) {
     out << s;
 }
 
-void Var::gettree(ostream &out, int shift, std::list<int> l) {
-    out << ' ' << s;
+vector<string> Var::get_tree_view(int shift) {
+    vector<string> treeAll;
+    treeAll.push_back(string(shift, ' ') + char('0' + s));
+
+    return treeAll;
 }
 
 string Var::saymyname() {
@@ -59,3 +62,4 @@ Node *Var::changeprior(Pool *pool, int prior, map<int, int> m) {
 Node *Var::copy(Pool *pool) {
     return new(pool) Var(s);
 }
+

@@ -22,66 +22,18 @@ void Abs::get_expression(ostream& out, WrapEntity wentity, Position position) {
         out << ')';
 }
 
-void Abs::gettree(ostream& out, int shift, list<int> l) {
-    int len = 3;
+vector<string> Abs::get_tree_view(int shift) {
+    vector<string> treeBegin;
+    treeBegin.push_back(string(shift, ' ') + _entName + _horizontalFirst + char('0' + l));
+    treeBegin.push_back(string(shift + _entName.size(), ' ') + _vertical);
+    
+    int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
+    vector<string> treeEnd = r->get_tree_view(newShift);
 
-    out << "Abs";
+    treeEnd[0].replace(shift + _entName.size(), _horizontalSecond.size(), _horizontalSecond);
+    treeBegin.insert(treeBegin.end(), treeEnd.begin(), treeEnd.end());
 
-    l.push_back(shift + len);
-
-    //out << (char) 203 << (char) 205 << (char) 205;
-    out << "/--";
-    out << ' ';
-    out << Abs::l;
-
-    std::list<int> tmpl(l);
-    int tmp;
-    if (tmpl.empty()) {
-        tmp = shift + len + 1;
-    } else {
-        tmp = tmpl.front();
-        tmpl.pop_front();
-    }
-
-    out << '\n';
-    for(int i = 0; i < shift + len + 1; ++i) {
-        if (i == tmp) {
-            //out << (char) 186;
-            out << "|";
-            if (tmpl.empty()) {
-                tmp = shift + len + 1;
-            } else {
-                tmp = tmpl.front();
-                tmpl.pop_front();
-            }
-        } else
-            out << ' ';
-    }
-
-    tmpl = l;
-    if (tmpl.empty()) {
-        tmp = shift + len + 1;
-    } else {
-        tmp = tmpl.front();
-        tmpl.pop_front();
-    }
-
-    out << '\n';
-    for(int i = 0; i < shift + len; ++i) {
-        if (i == tmp) {
-            out << "|";
-            if (tmpl.empty()) {
-                tmp = shift + len + 1;
-            } else {
-                tmp = tmpl.front();
-                tmpl.pop_front();
-            }
-        } else
-            out << ' ';
-    }
-    out << "\\__";
-    l.pop_back();
-    r -> gettree(out, shift + len + 3, l);
+    return treeBegin;
 }
 
 string Abs::saymyname() {

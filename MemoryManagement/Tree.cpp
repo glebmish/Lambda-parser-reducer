@@ -1,3 +1,7 @@
+#include <string>
+#include <vector>
+using namespace std;
+
 #include "Tree.h"
 
 bool Tree::is_full_pool() {
@@ -30,7 +34,9 @@ void Tree::getexp(ostream& out) {
 }
 
 void Tree::gettree(ostream& out) {
-    tree -> gettree(out);
+    vector<string> tree_view = tree->get_tree_view();
+    for (int i = 0; i < tree_view.size(); i++)
+        out << tree_view[i] << endl;
 }
 
 void Tree::reduce() {

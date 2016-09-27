@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <list>
+#include <vector>
+#include <cstdlib>
 using namespace std;
 
 #include "Node.h"
@@ -11,16 +13,17 @@ class Abs : public Node {
     int l;
     Node *r;
 
-
     public:
 
-    Abs(int ll, Node *rr): l(ll), r(rr) {}
+    Abs(int ll, Node *rr): l(ll), r(rr) {
+        _entName = "Abs";
+    }
 
     void *operator new (size_t n, Pool *pool);
     void operator delete (void* ptr, Pool *pool);
 
     void get_expression(ostream &out, WrapEntity wentity, Position position);
-    void gettree(ostream &out, int shift = 0, list<int> l = list<int>());
+    vector<string> get_tree_view(int shift);
 
     string saymyname();
     int getvalue();
@@ -34,3 +37,4 @@ class Abs : public Node {
 
     ~Abs();
 };
+
