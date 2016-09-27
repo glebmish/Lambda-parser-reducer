@@ -8,13 +8,18 @@ void Abs::operator delete(void *ptr, Pool *pool){
     free(ptr);
 }
 
-void Abs::getexp(ostream& out, bool isapp, bool isleft) {
-    if (isapp == true) out << '(';
+void Abs::get_expression(ostream& out, WrapEntity wentity, Position position) {
+    if (wentity == _application) 
+        out << '(';
+    
     out << '\\';
     out << l;
     out << '.';
-    r -> getexp(out, false, false);
-    if (isapp == true) out << ')';
+    
+    r -> get_expression(out, _abstraction, _left);
+    
+    if (wentity == _application)
+        out << ')';
 }
 
 void Abs::gettree(ostream& out, int shift, list<int> l) {

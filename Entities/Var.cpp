@@ -8,8 +8,10 @@ void Var::operator delete(void* ptr, Pool *pool) {
     free(ptr);
 }
 
-void Var::getexp(ostream &out, bool isapp, bool isleft) {
-    if (isapp == true && isleft == false) out << ' ';
+void Var::get_expression(ostream &out, WrapEntity wentity, Position position) {
+    if (wentity == _application && position == _right)
+        out << ' ';
+
     out << s;
 }
 

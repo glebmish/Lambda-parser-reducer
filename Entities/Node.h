@@ -8,10 +8,21 @@
 
 #include "../MemoryManagement/Pool.h"
 
+enum WrapEntity {
+    _application,
+    _abstraction,
+    _none
+};
+
+enum Position {
+    _left,
+    _right
+};
+
 class Node {
     public:
 
-        virtual void getexp(ostream &out, bool isapp = false, bool isleft = false) = 0;
+        virtual void get_expression(ostream &out, WrapEntity wentity = _none, Position position = _right) = 0;
         virtual void gettree(ostream &out, int shift = 0, list<int> l = list<int>()) = 0;
 
         virtual string saymyname() = 0;

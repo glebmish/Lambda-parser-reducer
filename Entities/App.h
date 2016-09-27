@@ -18,7 +18,7 @@ class App : public Node {
     void *operator new (size_t n, Pool *pool);
     void operator delete (void *ptr, Pool *pool);
 
-    void getexp(ostream &out, bool isapp = false, bool isleft = false);
+    void get_expression(ostream &out, WrapEntity wentity, Position position);
     void gettree(ostream &out, int shift = 0, list<int> l = list<int>());
 
     string saymyname();

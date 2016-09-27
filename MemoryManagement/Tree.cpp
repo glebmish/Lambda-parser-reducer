@@ -26,7 +26,7 @@ void Tree::debug_inf() {
 }
 
 void Tree::getexp(ostream& out) {
-    tree -> getexp(out);
+    tree -> get_expression(out);
 }
 
 void Tree::gettree(ostream& out) {
