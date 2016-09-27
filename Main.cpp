@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "Calculation/Calc.h"
-#include "Tests/Test.h"
+#include "Tests/FunctionalTest.h"
 #include "./Logger/Logger.h"
 
 int main(int argc, char *argv[]) {

@@ -5,7 +5,7 @@
 #include <algorithm>
 using namespace std;
 
-#include "Test.h"
+#include "FunctionalTest.h"
 #include "../Calculation/Calc.h"
 #include "../Logger/Logger.h"
 
