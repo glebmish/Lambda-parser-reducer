@@ -26,8 +26,6 @@ class Abs : public Node {
     void get_expression(ostream &out, string wrapEntity, Position position);
     vector<string> get_tree_view(int shift);
 
-    string getvalue();
-
     Node *reduce(Pool *pool);
     bool isredex();
     Node *substitute(Pool *pool, int free, int who, Node *with );

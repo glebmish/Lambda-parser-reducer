@@ -22,10 +22,6 @@ vector<string> Var::get_tree_view(int shift) {
     return treeAll;
 }
 
-string Var::getvalue() {
-    return variable;
-}
-
 Node *Var::reduce(Pool *pool) {
     return this;
 }

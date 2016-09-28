@@ -13,7 +13,7 @@ void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
         out << '(';
     
     out << '\\';
-    out << variable;
+    argument->get_expression(out, "Abs", _left);
     out << '.';
     
     function -> get_expression(out, _entName, _left);
@@ -23,21 +23,18 @@ void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
 }
 
 vector<string> Abs::get_tree_view(int shift) {
-    vector<string> treeBegin;
-    treeBegin.push_back(string(shift, ' ') + _entName + _horizontalFirst + ' ' + char('0' + variable));
+    int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
+    vector<string> treeBegin = argument->get_tree_view(newShift);
+    
+    treeBegin[0].replace(shift, _entName.size() + _horizontalFirst.size() + 1, _entName + _horizontalFirst + ' ');
     treeBegin.push_back(string(shift + _entName.size(), ' ') + _vertical);
     
-    int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
     vector<string> treeEnd = function->get_tree_view(newShift);
 
     treeEnd[0].replace(shift + _entName.size(), _horizontalSecond.size(), _horizontalSecond);
     treeBegin.insert(treeBegin.end(), treeEnd.begin(), treeEnd.end());
 
     return treeBegin;
-}
-
-int Abs::getvalue() {
-    return variable;
 }
 
 Node *Abs::reduce(Pool *pool) {
