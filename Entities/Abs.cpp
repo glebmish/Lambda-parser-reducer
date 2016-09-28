@@ -13,7 +13,7 @@ void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
         out << '(';
     
     out << '\\';
-    argument->get_expression(out, "Abs", _left);
+    argument->get_expression(out, _entName, position);
     out << '.';
     
     function -> get_expression(out, _entName, _left);
