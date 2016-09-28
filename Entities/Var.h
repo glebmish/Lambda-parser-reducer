@@ -11,11 +11,11 @@ using namespace std;
 #include "Node.h"
 
 class Var : public Node {
-    int variable;
+    string variable;
 
     public:
 
-    Var(int var): variable(var) {
+    Var(string var): variable(var) {
         _entName = "Var"; 
     }
 
@@ -25,7 +25,7 @@ class Var : public Node {
     void get_expression(ostream &out, string wrapEntity, Position position);
     vector<string> get_tree_view(int shift);
 
-    int getvalue();
+    string getvalue();
 
     Node *reduce(Pool *pool);
     bool isredex();

@@ -17,12 +17,12 @@ void Var::get_expression(ostream &out, string wrapEntity, Position position) {
 
 vector<string> Var::get_tree_view(int shift) {
     vector<string> treeAll;
-    treeAll.push_back(string(shift, ' ') + char('0' + variable));
+    treeAll.push_back(string(shift, ' ') + variable);
 
     return treeAll;
 }
 
-int Var::getvalue() {
+string Var::getvalue() {
     return variable;
 }
 
