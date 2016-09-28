@@ -40,16 +40,12 @@ vector<string> App::get_tree_view(int shift) {
     return treeBegin;
 }
     
-string App::saymyname() {
-    return "App";
-}
-
 int App::getvalue() {
     return 0;
 }
 
 Node *App::reduce(Pool *pool) {
-    if (l -> saymyname() == "Abs") {
+    if (l -> _entName == "Abs") {
         return l -> substitute(pool, 0, 0, r);
     } else {
         //l = l -> reduce(pool);
@@ -61,7 +57,7 @@ Node *App::reduce(Pool *pool) {
 }
 
 bool App::isredex() {
-    if (l -> saymyname() == "Abs") 
+    if (l -> _entName == "Abs") 
         return true;
     else
         return l -> isredex() || r -> isredex();

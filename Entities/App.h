@@ -23,7 +23,6 @@ class App : public Node {
     void get_expression(ostream &out, string wrapEntity, Position position);
     vector<string> get_tree_view(int shift = 0);
 
-    string saymyname();
     int getvalue();
 
     Node *reduce(Pool *pool);

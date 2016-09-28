@@ -22,10 +22,6 @@ vector<string> Var::get_tree_view(int shift) {
     return treeAll;
 }
 
-string Var::saymyname() {
-    return "Var";
-}
-
 int Var::getvalue() {
     return s;
 }

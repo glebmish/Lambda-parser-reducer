@@ -36,10 +36,6 @@ vector<string> Abs::get_tree_view(int shift) {
     return treeBegin;
 }
 
-string Abs::saymyname() {
-    return "Abs";
-}
-
 int Abs::getvalue() {
     return l;
 }
