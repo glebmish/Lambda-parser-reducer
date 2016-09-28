@@ -41,4 +41,6 @@ class Node {
     virtual Node* changeprior(Pool *pool, int prior, map<int, int> m = map<int,int>()) = 0;
 
     virtual Node* copy(Pool *pool) = 0;
+
+    virtual ~Node();
 };
