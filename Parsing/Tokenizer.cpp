@@ -1,42 +1,42 @@
 #include "Tokenizer.h"
 
-tokenizer::kind tokenizer::getKind() {
-    switch (s[pos]) {
+Tokenizer::Kind Tokenizer::get_kind() {
+    switch (expression[pos]) {
         case '\\': return LAMBDA;
         case '(': return OBRACKET;
         case ')': return CBRACKET;
         case '.': return POINT;
         case '\0': return ENOF;
         default: 
-                   if (s[pos] >= 'a' && s[pos] <= 'z') return VAR;
+                   if (expression[pos] >= 'a' && expression[pos] <= 'z') return VAR;
                    else return UNDEF;
     }
 }
 
-int tokenizer::getPos() {
+int Tokenizer::get_pos() {
     return pos;
 }
 
-string tokenizer::getString() {
-    string str;
+string Tokenizer::get_variable() {
+    string variable;
     int tmp = pos;
-    while (s[tmp] >= 'a' && s[tmp] <= 'z')
-        str += s[tmp++];
-    return str;
+    while (expression[tmp] >= 'a' && expression[tmp] <= 'z')
+        variable += expression[tmp++];
+    return variable;
 }
 
-char tokenizer::getChar() {
-    return s[pos];
+char Tokenizer::get_char() {
+    return expression[pos];
 }
 
-void tokenizer::Next() {
-    if (getKind() == ENOF) return;
-    kind k = getKind();
-    if (k == VAR) {
-        while (s[pos] >= 'a' && s[pos] <= 'z')
+void Tokenizer::next() {
+    if (get_kind() == ENOF) return;
+    Kind kind = get_kind();
+    if (kind == VAR) {
+        while (expression[pos] >= 'a' && expression[pos] <= 'z')
             ++pos;
     } 
     else ++pos;
-    while(s[pos] == ' ')
+    while(expression[pos] == ' ')
         ++pos;
 }

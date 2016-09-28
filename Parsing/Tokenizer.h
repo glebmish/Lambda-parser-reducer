@@ -3,12 +3,12 @@
 #include <string>
 using namespace std;
 
-class tokenizer {
-    string s;
+class Tokenizer {
+    string expression;
     int pos;
 
     public:
-    enum kind {
+    enum Kind {
         LAMBDA,
         OBRACKET,
         CBRACKET,
@@ -19,17 +19,17 @@ class tokenizer {
         UNDEF
     };
 
-    tokenizer() {}
-    tokenizer(string ss) {
-        s = ss;
+    Tokenizer() {}
+    Tokenizer(string exp) {
+        expression = exp;
         pos = 0;
-        while (s[pos] == ' ')
+        while (expression[pos] == ' ')
             ++pos;
     }
 
-    kind getKind();
-    int getPos();
-    string getString();
-    char getChar();
-    void Next();
+    Kind get_kind();
+    int get_pos();
+    string get_variable();
+    char get_char();
+    void next();
 };
