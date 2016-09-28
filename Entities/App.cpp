@@ -40,10 +40,6 @@ vector<string> App::get_tree_view(int shift) {
     return treeBegin;
 }
     
-int App::getvalue() {
-    return 0;
-}
-
 Node *App::reduce(Pool *pool) {
     if (leftFunction -> _entName == "Abs") {
         return leftFunction -> substitute(pool, 0, 0, rightFunction);
