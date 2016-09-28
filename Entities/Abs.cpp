@@ -24,7 +24,7 @@ void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
 
 vector<string> Abs::get_tree_view(int shift) {
     vector<string> treeBegin;
-    treeBegin.push_back(string(shift, ' ') + _entName + _horizontalFirst + char('0' + l));
+    treeBegin.push_back(string(shift, ' ') + _entName + _horizontalFirst + ' ' + char('0' + l));
     treeBegin.push_back(string(shift + _entName.size(), ' ') + _vertical);
     
     int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
