@@ -33,7 +33,7 @@ class ParseError {
 //T ::= \x.L | (L) | x
 
 class Parse {
-    tokenizer t;
+    Tokenizer t;
     map<string, int> m;
     int freect;
 
