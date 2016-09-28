@@ -12,19 +12,19 @@ using namespace std;
 #include "../Entities/Var.h"
 
 class ParseError {
-    int ErrorPos;
-    char ErrorChar;
-    string Expected;
+    int errorPos;
+    char errorChar;
+    string expected;
 
     public:
 
-    ParseError(int ep, char ec, string ex): ErrorPos(ep), ErrorChar(ec), Expected(ex) {}
-    ParseError(int ep, char ec): ErrorPos(ep), ErrorChar(ec), Expected("\0") {}
+    ParseError(int errPos, char errCh, string expect): errorPos(errPos), errorChar(errCh), expected(expect) {}
+    ParseError(int errPos, char errCh): errorPos(errPos), errorChar(errCh), expected("\0") {}
 
     void print() {
-        cout << "Parse Error: Wrong character \'" << ErrorChar << "\' on position " << ErrorPos << "\n";
-        if (Expected != "\0")
-            cout << '\'' << Expected << "\' expected\n";
+        cout << "Parse Error: Wrong character \'" << errorChar << "\' on position " << errorPos << "\n";
+        if (expected != "\0")
+            cout << '\'' << expected << "\' expected\n";
     }
 };
 
@@ -33,14 +33,17 @@ class ParseError {
 //T ::= \x.L | (L) | x
 
 class Parse {
-    Tokenizer t;
-    map<string, int> m;
-    int freect;
+    Tokenizer tokenizer;
+    map<string, Var*> variableNameToObject;
 
-    Node* parse_L(int k, Pool* pool);
-    Node* parse_T(int k, Pool* pool);
+    Node *parse_L(Pool *pool);
+    Node *parse_T(Pool *pool);
+
+    Node *parse_lambda(Pool *pool);
+    Node *parse_variable(Pool *pool);
+    Node *parse_brackets(Pool *pool);
     public:
-    Parse(string s): t(s), freect(-1) {}
+    Parse(string expression): tokenizer(expression) {}
 
     Tree parse();
 };

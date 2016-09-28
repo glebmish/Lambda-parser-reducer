@@ -2,61 +2,103 @@
 
 Tree Parse::parse() {
     Pool* pool = new Pool();
-    Node *x = parse_L(1, pool);
-    if (t.get_kind() != Tokenizer::ENOF) {
-        delete x;
-        throw ParseError(t.get_pos(), t.get_char(), "\\0");
+    Node *function = parse_L(pool);
+
+    if (tokenizer.get_kind() != Tokenizer::ENOF) {
+        delete function;
+        throw ParseError(tokenizer.get_pos(), tokenizer.get_char(), "\\0");
     }
-    return Tree(pool, x);
+
+    return Tree(pool, function);
 }
 
-Node* Parse::parse_L(int k, Pool* pool) {
-    Node* l = parse_T(k, pool);
-    if (l == NULL) throw ParseError(t.get_pos(), t.get_char());
+Node *Parse::parse_L(Pool *pool) {
+    Node* leftFunction = parse_T(pool);
+
+    if (leftFunction == NULL) 
+        throw ParseError(tokenizer.get_pos(), tokenizer.get_char());
+    
     try {
-        while (t.get_kind() != Tokenizer::ENOF) {
-            Node* r = parse_T(k, pool);
-            if (r == NULL) break;
-            l = new(pool) App(l, r);
+        while (tokenizer.get_kind() != Tokenizer::ENOF) {
+            Node* rightFunction = parse_T(pool);
+            
+            if (rightFunction == NULL) 
+                break;
+
+            leftFunction = new(pool) App(leftFunction, rightFunction);
         }
-    } catch (ParseError e) {
-        delete l;
-        throw e;
+    } catch (ParseError error) {
+        delete leftFunction;
+        throw error;
     }
-    return l;
+
+    return leftFunction;
 };
 
+Node *Parse::parse_lambda(Pool *pool) {
+    tokenizer.next();
 
-Node* Parse::parse_T(int k, Pool* pool) {
-    if (t.get_kind() == Tokenizer::LAMBDA) {
-        t.next();
-        string s = t.get_variable();
-        t.next();
-        if (t.get_kind() != Tokenizer::POINT) throw ParseError(t.get_pos(), t.get_char(), ".");
-        t.next();
-        int tmp = m[s];
-        m[s] = k;
-        Node* n = parse_L(k + 1, pool);
-        m[s] = tmp;
+    string variable = tokenizer.get_variable();
 
-        return new(pool) Abs(k, n);
-    } else if (t.get_kind() == Tokenizer::VAR) {
-        string s = t.get_variable();
-        t.next();
+    Var *outterArgument = NULL;
+    if (variableNameToObject.count(variable))
+        outterArgument = variableNameToObject[variable];
 
-        if (m.count(s) && m[s] != 0)
-            return new(pool) Var(m[s]);
-        else {
-            m[s] = freect--;
-            return new(pool) Var(m[s]);
-        }
-    } else if (t.get_kind() == Tokenizer::OBRACKET) {
-        t.next();
-        Node* n = parse_L(k, pool);
-        if (t.get_kind() != Tokenizer::CBRACKET) throw ParseError(t.get_pos(), t.get_char(), ")");
-        t.next();
+    Var *argument = new(pool) Var(variable);
+    variableNameToObject[variable] = argument;
 
-        return n;
-    } else
+    tokenizer.next();
+
+    if (tokenizer.get_kind() != Tokenizer::POINT) 
+        throw ParseError(tokenizer.get_pos(), tokenizer.get_char(), ".");
+
+    tokenizer.next();
+
+    Node* function = parse_L(pool);
+
+    if (outterArgument != NULL)
+        variableNameToObject[variable] = outterArgument;
+    else
+        variableNameToObject.erase(variable);
+
+    return new(pool) Abs(argument, function);
+}
+
+Node *Parse::parse_variable(Pool *pool) {
+    string variable = tokenizer.get_variable();
+
+    tokenizer.next();
+
+    if (variableNameToObject.count(variable))
+        return variableNameToObject[variable];
+    else 
+        return new(pool) Var(variable);
+}
+
+Node *Parse::parse_brackets(Pool *pool) {
+    tokenizer.next();
+
+    Node* function = parse_L(pool);
+
+    if (tokenizer.get_kind() != Tokenizer::CBRACKET) 
+        throw ParseError(tokenizer.get_pos(), tokenizer.get_char(), ")");
+
+    tokenizer.next();
+
+    return function;
+}
+
+
+Node *Parse::parse_T(Pool *pool) {
+    if (tokenizer.get_kind() == Tokenizer::LAMBDA)
+        return parse_lambda(pool);
+
+    else if (tokenizer.get_kind() == Tokenizer::VAR)
+        return parse_variable(pool);
+
+    else if (tokenizer.get_kind() == Tokenizer::OBRACKET)
+        return parse_brackets(pool); 
+
+    else
         return NULL;
 }
