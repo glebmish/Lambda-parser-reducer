@@ -11,11 +11,11 @@ using namespace std;
 #include "Node.h"
 
 class Var : public Node {
-    int s;
+    int variable;
 
     public:
 
-    Var(int ss): s(ss) {
+    Var(int var): variable(var) {
         _entName = "Var"; 
     }
 

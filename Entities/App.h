@@ -8,12 +8,12 @@ using namespace std;
 #include "Node.h"
 
 class App : public Node {
-    Node *l;
-    Node *r;
+    Node *leftFunction;
+    Node *rightFunction;
 
     public:
 
-    App(Node *ll, Node *rr): l(ll), r(rr) {
+    App(Node *lfunc, Node *rfunc): leftFunction(lfunc), rightFunction(rfunc) {
         _entName = "App";
     }
 

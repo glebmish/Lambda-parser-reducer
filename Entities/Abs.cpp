@@ -13,10 +13,10 @@ void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
         out << '(';
     
     out << '\\';
-    out << l;
+    out << variable;
     out << '.';
     
-    r -> get_expression(out, _entName, _left);
+    function -> get_expression(out, _entName, _left);
     
     if (wrapEntity == "App")
         out << ')';
@@ -24,11 +24,11 @@ void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
 
 vector<string> Abs::get_tree_view(int shift) {
     vector<string> treeBegin;
-    treeBegin.push_back(string(shift, ' ') + _entName + _horizontalFirst + ' ' + char('0' + l));
+    treeBegin.push_back(string(shift, ' ') + _entName + _horizontalFirst + ' ' + char('0' + variable));
     treeBegin.push_back(string(shift + _entName.size(), ' ') + _vertical);
     
     int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
-    vector<string> treeEnd = r->get_tree_view(newShift);
+    vector<string> treeEnd = function->get_tree_view(newShift);
 
     treeEnd[0].replace(shift + _entName.size(), _horizontalSecond.size(), _horizontalSecond);
     treeBegin.insert(treeBegin.end(), treeEnd.begin(), treeEnd.end());
@@ -37,40 +37,40 @@ vector<string> Abs::get_tree_view(int shift) {
 }
 
 int Abs::getvalue() {
-    return l;
+    return variable;
 }
 
 Node *Abs::reduce(Pool *pool) {
-    return new(pool) Abs(l, r -> reduce(pool));
+    return new(pool) Abs(variable, function -> reduce(pool));
 }
 
 bool Abs::isredex() {
-    return r -> isredex();
+    return function -> isredex();
 }
 
 Node *Abs::substitute(Pool *pool, int free, int who, Node *with) {
     if (who == 0)
-        return r -> substitute(pool, l, l, with);
+        return function -> substitute(pool, variable, variable, with);
     else
-        return new(pool) Abs(free, r -> substitute(pool, free + 1, who, with));
+        return new(pool) Abs(free, function -> substitute(pool, free + 1, who, with));
 }
 
 Node *Abs::changeprior(Pool *pool, int prior, map<int, int> m) {
-    int newl;
-    if (l < 0)
-        newl = l;
+    int newvar;
+    if (variable < 0)
+        newvar = variable;
     else
-        if (m.count(l))
-            newl = m[l];
-        else m[l] = newl = prior, prior++;
+        if (m.count(variable))
+            newvar = m[variable];
+        else m[variable] = newvar = prior, prior++;
 
-    return new(pool) Abs(newl, r -> changeprior(pool, prior, m));
+    return new(pool) Abs(newvar, function -> changeprior(pool, prior, m));
 }
 
 Node *Abs::copy (Pool *pool) {
-    return new(pool) Abs(l, r -> copy(pool));
+    return new(pool) Abs(variable, function -> copy(pool));
 }
 
 Abs::~Abs() {
-    delete r;
+    delete function;
 }

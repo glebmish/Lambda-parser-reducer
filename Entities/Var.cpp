@@ -12,18 +12,18 @@ void Var::get_expression(ostream &out, string wrapEntity, Position position) {
     if (wrapEntity == "App" && position == _right)
         out << ' ';
 
-    out << s;
+    out << variable;
 }
 
 vector<string> Var::get_tree_view(int shift) {
     vector<string> treeAll;
-    treeAll.push_back(string(shift, ' ') + char('0' + s));
+    treeAll.push_back(string(shift, ' ') + char('0' + variable));
 
     return treeAll;
 }
 
 int Var::getvalue() {
-    return s;
+    return variable;
 }
 
 Node *Var::reduce(Pool *pool) {
@@ -35,28 +35,28 @@ bool Var::isredex() {
 }
 
 Node *Var::substitute(Pool *pool, int free, int who, Node *with) {
-    if (s == who)
+    if (variable == who)
         return with -> changeprior(pool, free);
     else
-        if (s > 0)
-            return new(pool) Var(s - 1);
-        else return new(pool) Var(s);
+        if (variable > 0)
+            return new(pool) Var(variable - 1);
+        else return new(pool) Var(variable);
 }
 
 Node *Var::changeprior(Pool *pool, int prior, map<int, int> m) {
-    int newl;
-    if (s < 0)
-        newl = s;
+    int newvar;
+    if (variable < 0)
+        newvar = variable;
     else
-        if (m.count(s))
-            newl = m[s];
-        else m[s] = newl = prior, prior++;
+        if (m.count(variable))
+            newvar = m[variable];
+        else m[variable] = newvar = prior, prior++;
 
-    return new(pool) Var(newl);
+    return new(pool) Var(newvar);
 }
 
 Node *Var::copy(Pool *pool) {
-    return new(pool) Var(s);
+    return new(pool) Var(variable);
 }
 
 

@@ -10,12 +10,12 @@ using namespace std;
 #include "Node.h"
 
 class Abs : public Node {
-    int l;
-    Node *r;
+    int variable;
+    Node *function;
 
     public:
 
-    Abs(int ll, Node *rr): l(ll), r(rr) {
+    Abs(int var, Node *func): variable(var), function(func) {
         _entName = "Abs";
     }
 

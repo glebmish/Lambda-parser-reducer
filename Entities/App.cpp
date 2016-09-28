@@ -12,8 +12,8 @@ void App::get_expression(ostream& out, string wrapEntity, Position position) {
     if (wrapEntity == "App" && position == _left)
         out << '(';
     
-    l -> get_expression(out, _entName, _left);
-    r -> get_expression(out, _entName, _right);
+    leftFunction -> get_expression(out, _entName, _left);
+    rightFunction -> get_expression(out, _entName, _right);
     
     if (wrapEntity == "App" && position == _left) 
         out << ')';
@@ -23,7 +23,7 @@ vector<string> App::get_tree_view(int shift) {
     vector<string> treeBegin;
 
     int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
-    vector<string> treeMid = l->get_tree_view(newShift);
+    vector<string> treeMid = leftFunction->get_tree_view(newShift);
 
     treeMid[0].replace(shift, _entName.size() + _horizontalFirst.size() + 1, _entName + _horizontalFirst + ' ');
     for (int i = 1; i < treeMid.size(); i++)
@@ -32,7 +32,7 @@ vector<string> App::get_tree_view(int shift) {
     treeBegin.insert(treeBegin.end(), treeMid.begin(), treeMid.end());
     treeBegin.push_back(string(shift + _entName.size(), ' ') + _vertical);
 
-    vector<string> treeEnd = r->get_tree_view(newShift);
+    vector<string> treeEnd = rightFunction->get_tree_view(newShift);
     treeEnd[0].replace(shift + _entName.size(), _horizontalSecond.size(), _horizontalSecond);
 
     treeBegin.insert(treeBegin.end(), treeEnd.begin(), treeEnd.end());
@@ -45,37 +45,33 @@ int App::getvalue() {
 }
 
 Node *App::reduce(Pool *pool) {
-    if (l -> _entName == "Abs") {
-        return l -> substitute(pool, 0, 0, r);
+    if (leftFunction -> _entName == "Abs") {
+        return leftFunction -> substitute(pool, 0, 0, rightFunction);
     } else {
-        //l = l -> reduce(pool);
-        //r = r -> reduce(pool);
-        //return this -> copy(pool);
-
-        return new(pool) App(l -> reduce(pool), r -> reduce(pool));//возможно не будет работать когда идет перенос в другой пул
+        return new(pool) App(leftFunction -> reduce(pool), rightFunction -> reduce(pool));
     }
 }
 
 bool App::isredex() {
-    if (l -> _entName == "Abs") 
+    if (leftFunction -> _entName == "Abs") 
         return true;
     else
-        return l -> isredex() || r -> isredex();
+        return leftFunction -> isredex() || rightFunction -> isredex();
 }
 
 Node *App::substitute(Pool *pool, int free, int who, Node *with) {
-    return new(pool) App(l -> substitute(pool, free, who, with), r -> substitute(pool, free, who, with));
+    return new(pool) App(leftFunction -> substitute(pool, free, who, with), rightFunction -> substitute(pool, free, who, with));
 }
 
 Node *App::changeprior(Pool *pool, int prior, map<int, int> m) {
-    return new(pool) App(l -> changeprior(pool, prior, m), r -> changeprior(pool, prior, m));
+    return new(pool) App(leftFunction -> changeprior(pool, prior, m), rightFunction -> changeprior(pool, prior, m));
 }
 
 Node *App::copy (Pool *pool) {
-    return new(pool) App(l -> copy(pool), r -> copy(pool));
+    return new(pool) App(leftFunction -> copy(pool), rightFunction -> copy(pool));
 }
 
 App::~App() {
-    delete l; 
-    delete r;
+    delete leftFunction; 
+    delete rightFunction;
 }
