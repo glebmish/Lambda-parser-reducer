@@ -1,9 +1,6 @@
 #include "Node.h"
 using namespace std;
 
-Node::Node() {
-    _horizontalFirst = "/--";
-    _horizontalSecond = "\\__";
-    _vertical = "|";
-}
-    
+const string Node::_horizontalFirst = "/--",
+      Node::_horizontalSecond = "\\__",
+      Node::_vertical = "|";

@@ -22,7 +22,7 @@ class Abs : public Node {
     void *operator new (size_t n, Pool *pool);
     void operator delete (void* ptr, Pool *pool);
 
-    void get_expression(ostream &out, WrapEntity wentity, Position position);
+    void get_expression(ostream &out, string wrapEntity, Position position);
     vector<string> get_tree_view(int shift);
 
     string saymyname();
@@ -37,4 +37,5 @@ class Abs : public Node {
 
     ~Abs();
 };
+
 

@@ -8,17 +8,17 @@ void Abs::operator delete(void *ptr, Pool *pool){
     free(ptr);
 }
 
-void Abs::get_expression(ostream& out, WrapEntity wentity, Position position) {
-    if (wentity == _application) 
+void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
+    if (wrapEntity == "App") 
         out << '(';
     
     out << '\\';
     out << l;
     out << '.';
     
-    r -> get_expression(out, _abstraction, _left);
+    r -> get_expression(out, _entName, _left);
     
-    if (wentity == _application)
+    if (wrapEntity == "App")
         out << ')';
 }
 

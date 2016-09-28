@@ -8,8 +8,8 @@ void Var::operator delete(void* ptr, Pool *pool) {
     free(ptr);
 }
 
-void Var::get_expression(ostream &out, WrapEntity wentity, Position position) {
-    if (wentity == _application && position == _right)
+void Var::get_expression(ostream &out, string wrapEntity, Position position) {
+    if (wrapEntity == "App" && position == _right)
         out << ' ';
 
     out << s;
@@ -62,4 +62,5 @@ Node *Var::changeprior(Pool *pool, int prior, map<int, int> m) {
 Node *Var::copy(Pool *pool) {
     return new(pool) Var(s);
 }
+
 

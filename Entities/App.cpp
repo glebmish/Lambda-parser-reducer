@@ -7,14 +7,15 @@ void *App::operator new (size_t n, Pool *pool) {
 void App::operator delete(void* ptr, Pool *pool) {
     free(ptr);
 }
-void App::get_expression(ostream& out, WrapEntity wentity, Position position) {
-    if (wentity == _application && position == _left)
+
+void App::get_expression(ostream& out, string wrapEntity, Position position) {
+    if (wrapEntity == "App" && position == _left)
         out << '(';
     
-    l -> get_expression(out, _application, _left);
-    r -> get_expression(out, _application, _right);
+    l -> get_expression(out, _entName, _left);
+    r -> get_expression(out, _entName, _right);
     
-    if (wentity == _application && position == _left) 
+    if (wrapEntity == "App" && position == _left) 
         out << ')';
 }
 

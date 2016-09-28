@@ -20,7 +20,7 @@ class App : public Node {
     void *operator new (size_t n, Pool *pool);
     void operator delete (void *ptr, Pool *pool);
 
-    void get_expression(ostream &out, WrapEntity wentity, Position position);
+    void get_expression(ostream &out, string wrapEntity, Position position);
     vector<string> get_tree_view(int shift = 0);
 
     string saymyname();
@@ -35,4 +35,5 @@ class App : public Node {
 
     ~App();
 };
+
 
