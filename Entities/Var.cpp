@@ -51,7 +51,7 @@ Node *Var::changeprior(Pool *pool, int prior, map<int, int> m) {
     return new(pool) Var(newvar);
 }
 
-Node *Var::copy(Pool *pool) {
+Var *Var::copy(Pool *pool) {
     return new(pool) Var(variable);
 }
 

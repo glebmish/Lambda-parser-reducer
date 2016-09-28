@@ -64,8 +64,8 @@ Node *Abs::changeprior(Pool *pool, int prior, map<int, int> m) {
     return new(pool) Abs(newvar, function -> changeprior(pool, prior, m));
 }
 
-Node *Abs::copy (Pool *pool) {
-    return new(pool) Abs(variable, function -> copy(pool));
+Abs *Abs::copy (Pool *pool) {
+    return new(pool) Abs(argument->copy(pool), function -> copy(pool));
 }
 
 Abs::~Abs() {

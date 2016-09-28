@@ -31,7 +31,7 @@ class Abs : public Node {
     Node *substitute(Pool *pool, int free, int who, Node *with );
     Node *changeprior(Pool *pool, int prior, map<int, int> m = map<int,int>());
 
-    Node *copy(Pool *pool);
+    Abs *copy(Pool *pool);
 
     ~Abs();
 };

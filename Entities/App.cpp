@@ -63,7 +63,7 @@ Node *App::changeprior(Pool *pool, int prior, map<int, int> m) {
     return new(pool) App(leftFunction -> changeprior(pool, prior, m), rightFunction -> changeprior(pool, prior, m));
 }
 
-Node *App::copy (Pool *pool) {
+App *App::copy (Pool *pool) {
     return new(pool) App(leftFunction -> copy(pool), rightFunction -> copy(pool));
 }
 
