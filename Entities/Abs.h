@@ -8,14 +8,15 @@
 using namespace std;
 
 #include "Node.h"
+#include "Var.h"
 
 class Abs : public Node {
-    int variable;
+    Var *argument;
     Node *function;
 
     public:
 
-    Abs(int var, Node *func): variable(var), function(func) {
+    Abs(Var *arg, Node *func): argument(arg), function(func) {
         _entName = "Abs";
     }
 
