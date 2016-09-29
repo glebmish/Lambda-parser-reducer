@@ -1,4 +1,5 @@
 #include "Var.h"
+#include <sstream>
 
 void *Var::operator new (size_t n, Pool *pool) {
     return pool -> palloc(sizeof(Var));
@@ -16,8 +17,11 @@ void Var::get_expression(ostream &out, string wrapEntity, Position position) {
 }
 
 vector<string> Var::get_tree_view(int shift) {
+    stringstream convert;
+    convert << this;
+
     vector<string> treeAll;
-    treeAll.push_back(string(shift, ' ') + variable);
+    treeAll.push_back(string(shift, ' ') + variable + ' ' + convert.str() + ' ');
 
     return treeAll;
 }
