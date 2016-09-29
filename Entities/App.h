@@ -18,7 +18,7 @@ class App : public Node {
     }
 
     void *operator new (size_t n, Pool *pool);
-    void operator delete (void *ptr, Pool *pool);
+    void operator delete (void *ptr);
 
     // functions for visual representing of expression
     void get_expression(ostream &out, string wrapEntity);

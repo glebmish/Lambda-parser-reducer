@@ -2,10 +2,10 @@
 using namespace std;
 
 void *App::operator new (size_t n, Pool *pool) {
-    return pool -> palloc(sizeof(App));
+    return pool -> palloc(n);
 }
 
-void App::operator delete(void* ptr, Pool *pool) {
+void App::operator delete(void* ptr) {
     free(ptr);
 }
 

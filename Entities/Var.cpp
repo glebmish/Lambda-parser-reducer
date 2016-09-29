@@ -4,10 +4,10 @@
 using namespace std;
 
 void *Var::operator new (size_t n, Pool *pool) {
-    return pool -> palloc(sizeof(Var));
+    return pool -> palloc(n);
 }
 
-void Var::operator delete(void* ptr, Pool *pool) {
+void Var::operator delete(void *ptr) {
     free(ptr);
 }
 
