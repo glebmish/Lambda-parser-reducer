@@ -1,3 +1,4 @@
+//sstream included to convert variable adress to string
 #include <sstream>
 #include "Var.h"
 using namespace std;
@@ -15,6 +16,7 @@ void Var::get_expression(ostream &out, string wrapEntity) {
 }
 
 vector<string> Var::get_tree_view(int shift) {
+    // get variable address as string
     stringstream convert;
     convert << this;
 
@@ -29,6 +31,12 @@ Node *Var::reduce(Pool *pool) {
 }
 
 Node *Var::substitute(Pool *pool, Node *substituteTo, Var *substituteThis) {
+    // (\x.x) y
+    //     ^  ^
+    //     |  \_substituteTo
+    //     |
+    // substituteThis
+    
     if (this == substituteThis)
         return substituteTo->copy(pool);
     else
@@ -40,6 +48,8 @@ bool Var::is_redex() {
 }
 
 Var *Var::copy(Pool *pool) {
+    // don't actually copy anything, because
+    // if it does, the same variables could became different
     return this;
 }
 

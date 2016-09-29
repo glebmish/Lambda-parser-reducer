@@ -10,6 +10,8 @@ void App::operator delete(void* ptr, Pool *pool) {
 }
 
 void App::get_expression(ostream& out, string wrapEntity) {
+    // when leftFuntion is abstraction, application should be wrapped in brackets
+    // example: a ((\x.x) b) c
     if (leftFunction->_entName == "Abs")
         out << '(';
 
@@ -22,30 +24,42 @@ void App::get_expression(ostream& out, string wrapEntity) {
 }
 
 vector<string> App::get_tree_view(int shift) {
-    vector<string> treeBegin;
-
+    // newShift will point here:
+    // App/-- 
+    //        ^
     int newShift = shift + _entName.size() + _horizontalFirst.size() + 1;
-    vector<string> treeMid = leftFunction->get_tree_view(newShift);
 
-    treeMid[0].replace(shift, _entName.size() + _horizontalFirst.size() + 1, _entName + _horizontalFirst + ' ');
-    for (int i = 1; i < treeMid.size(); i++)
-        treeMid[i].replace(shift + _entName.size(), _vertical.size(), _vertical);
+    // process left function of abstraction
+    vector<string> treeBegin = leftFunction->get_tree_view(newShift);
     
-    treeBegin.insert(treeBegin.end(), treeMid.begin(), treeMid.end());
+    //  add "/-- " to already processed left function
+    //      "|   "
+    //      ......
+    //      "|   "
+    treeBegin[0].replace(shift, _entName.size() + _horizontalFirst.size() + 1, _entName + _horizontalFirst + ' ');
+    for (int i = 1; i < treeBegin.size(); i++)
+        treeBegin[i].replace(shift + _entName.size(), _vertical.size(), _vertical);
     treeBegin.push_back(string(shift + _entName.size(), ' ') + _vertical);
-
+    
+    // process right function of abstraction
     vector<string> treeEnd = rightFunction->get_tree_view(newShift);
-    treeEnd[0].replace(shift + _entName.size(), _horizontalSecond.size(), _horizontalSecond);
 
+    // add "\__ " to already processed right function
+    treeEnd[0].replace(shift + _entName.size(), _horizontalSecond.size(), _horizontalSecond);
+    
+    //merge parts of result
     treeBegin.insert(treeBegin.end(), treeEnd.begin(), treeEnd.end());
 
     return treeBegin;
 }
     
 Node *App::reduce(Pool *pool) {
+    // if leftFunction is abstraction,
+    // this abstraction will be the entry point of reduction
     if (leftFunction->_entName == "Abs") {
         return leftFunction->substitute(pool, rightFunction);
     } else {
+        // this if used to ensure that it will be only one reduction at a time
         if (rightFunction->is_redex())
             return new(pool) App(leftFunction->copy(pool), rightFunction->reduce(pool));
         else
@@ -54,6 +68,13 @@ Node *App::reduce(Pool *pool) {
 }
 
 Node *App::substitute(Pool *pool, Node *substituteTo, Var *substituteThis) {
+    // (\x.x) y
+    //     ^  ^
+    //     |  \_substituteTo
+    //     |
+    // substituteThis
+
+
     return new(pool) App(leftFunction -> substitute(pool, substituteTo, substituteThis), 
                         rightFunction -> substitute(pool, substituteTo, substituteThis));
 }
