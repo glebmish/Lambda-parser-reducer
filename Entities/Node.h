@@ -6,11 +6,6 @@
 
 #include "../MemoryManagement/Pool.h"
 
-enum Position {
-    _left,
-    _right
-};
-
 class Var;
 
 class Node {
@@ -23,7 +18,7 @@ class Node {
     public:
     string _entName;
 
-    virtual void get_expression(std::ostream &out, std::string wrapEntity = "none", Position position = _right) = 0;
+    virtual void get_expression(std::ostream &out, std::string wrapEntity = "none") = 0;
     virtual std::vector<string> get_tree_view(int shift = 0) = 0;
 
     virtual Node* reduce(Pool *pool) = 0;

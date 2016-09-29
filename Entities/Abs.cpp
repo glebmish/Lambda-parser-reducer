@@ -9,15 +9,15 @@ void Abs::operator delete(void *ptr, Pool *pool){
     free(ptr);
 }
 
-void Abs::get_expression(ostream& out, string wrapEntity, Position position) {
+void Abs::get_expression(ostream& out, string wrapEntity) {
     if (wrapEntity == "App") 
         out << '(';
     
     out << '\\';
-    argument->get_expression(out, _entName, position);
+    argument->get_expression(out, _entName);
     out << '.';
     
-    function -> get_expression(out, _entName, _left);
+    function -> get_expression(out, _entName);
     
     if (wrapEntity == "App")
         out << ')';

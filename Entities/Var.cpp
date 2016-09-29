@@ -10,10 +10,7 @@ void Var::operator delete(void* ptr, Pool *pool) {
     free(ptr);
 }
 
-void Var::get_expression(ostream &out, string wrapEntity, Position position) {
-    if (wrapEntity == "App" && position == _right)
-        out << ' ';
-
+void Var::get_expression(ostream &out, string wrapEntity) {
     out << variable;
 }
 

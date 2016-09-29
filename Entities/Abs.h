@@ -16,7 +16,7 @@ class Abs : public Node {
     void *operator new (size_t n, Pool *pool);
     void operator delete (void* ptr, Pool *pool);
 
-    void get_expression(std::ostream &out, std::string wrapEntity, Position position);
+    void get_expression(std::ostream &out, std::string wrapEntity);
     std::vector<string> get_tree_view(int shift);
 
     Node *reduce(Pool *pool);

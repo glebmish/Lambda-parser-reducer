@@ -9,14 +9,15 @@ void App::operator delete(void* ptr, Pool *pool) {
     free(ptr);
 }
 
-void App::get_expression(ostream& out, string wrapEntity, Position position) {
-    if (wrapEntity == "App" && position == _left)
+void App::get_expression(ostream& out, string wrapEntity) {
+    if (leftFunction->_entName == "Abs")
         out << '(';
+
+    leftFunction -> get_expression(out, _entName);
+    out << ' ';
+    rightFunction -> get_expression(out, _entName);
     
-    leftFunction -> get_expression(out, _entName, _left);
-    rightFunction -> get_expression(out, _entName, _right);
-    
-    if (wrapEntity == "App" && position == _left) 
+    if (leftFunction->_entName == "Abs")
         out << ')';
 }
 
