@@ -38,30 +38,18 @@ vector<string> Abs::get_tree_view(int shift) {
 }
 
 Node *Abs::reduce(Pool *pool) {
-    return new(pool) Abs(variable, function -> reduce(pool));
+    return new(pool) Abs(argument, function->reduce(pool));
 }
 
-bool Abs::isredex() {
-    return function -> isredex();
+Node *Abs::substitute(Pool *pool, Node *substituteTo, Var *substituteThis) {
+    if (substituteThis == NULL)
+        return function->substitute(pool, substituteTo, argument);
+    else 
+        return new(pool) Abs(argument, function->substitute(pool, substituteTo, substituteThis));
 }
 
-Node *Abs::substitute(Pool *pool, int free, int who, Node *with) {
-    if (who == 0)
-        return function -> substitute(pool, variable, variable, with);
-    else
-        return new(pool) Abs(free, function -> substitute(pool, free + 1, who, with));
-}
-
-Node *Abs::changeprior(Pool *pool, int prior, map<int, int> m) {
-    int newvar;
-    if (variable < 0)
-        newvar = variable;
-    else
-        if (m.count(variable))
-            newvar = m[variable];
-        else m[variable] = newvar = prior, prior++;
-
-    return new(pool) Abs(newvar, function -> changeprior(pool, prior, m));
+bool Abs::is_redex() {
+    return function->is_redex();
 }
 
 Abs *Abs::copy (Pool *pool) {

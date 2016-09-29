@@ -26,9 +26,8 @@ class Var : public Node {
     vector<string> get_tree_view(int shift);
 
     Node *reduce(Pool *pool);
-    bool isredex();
-    Node *substitute(Pool *pool, int free, int who, Node *with);
-    Node *changeprior(Pool *pool, int prior, map<int, int> m = map<int,int>());
+    Node *substitute(Pool *pool, Node *substituteTo, Var *substituteThis);
+    bool is_redex();
 
     Var *copy(Pool *pool);
 };

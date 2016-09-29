@@ -41,26 +41,26 @@ vector<string> App::get_tree_view(int shift) {
 }
     
 Node *App::reduce(Pool *pool) {
-    if (leftFunction -> _entName == "Abs") {
-        return leftFunction -> substitute(pool, 0, 0, rightFunction);
+    if (leftFunction->_entName == "Abs") {
+        return leftFunction->substitute(pool, rightFunction);
     } else {
-        return new(pool) App(leftFunction -> reduce(pool), rightFunction -> reduce(pool));
+        if (rightFunction->is_redex())
+            return new(pool) App(leftFunction->copy(pool), rightFunction->reduce(pool));
+        else
+            return new(pool) App(leftFunction->reduce(pool), rightFunction->copy(pool));
     }
 }
 
-bool App::isredex() {
-    if (leftFunction -> _entName == "Abs") 
+Node *App::substitute(Pool *pool, Node *substituteTo, Var *substituteThis) {
+    return new(pool) App(leftFunction -> substitute(pool, substituteTo, substituteThis), 
+                        rightFunction -> substitute(pool, substituteTo, substituteThis));
+}
+
+bool App::is_redex() {
+    if (leftFunction->_entName == "Abs") 
         return true;
     else
-        return leftFunction -> isredex() || rightFunction -> isredex();
-}
-
-Node *App::substitute(Pool *pool, int free, int who, Node *with) {
-    return new(pool) App(leftFunction -> substitute(pool, free, who, with), rightFunction -> substitute(pool, free, who, with));
-}
-
-Node *App::changeprior(Pool *pool, int prior, map<int, int> m) {
-    return new(pool) App(leftFunction -> changeprior(pool, prior, m), rightFunction -> changeprior(pool, prior, m));
+        return leftFunction->is_redex() || rightFunction->is_redex();
 }
 
 App *App::copy (Pool *pool) {

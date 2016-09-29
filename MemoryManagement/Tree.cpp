@@ -46,5 +46,5 @@ void Tree::reduce() {
 }
 
 bool Tree::isredex() {
-    return tree -> isredex();
+    return tree -> is_redex();
 }

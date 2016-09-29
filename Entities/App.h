@@ -6,6 +6,7 @@
 using namespace std;
 
 #include "Node.h"
+#include "Var.h"
 
 class App : public Node {
     Node *leftFunction;
@@ -24,9 +25,8 @@ class App : public Node {
     vector<string> get_tree_view(int shift = 0);
 
     Node *reduce(Pool *pool);
-    bool isredex();
-    Node *substitute(Pool *pool, int free, int who, Node* with);
-    Node *changeprior(Pool *pool, int prior, map<int, int> m = map<int,int>());
+    Node *substitute(Pool *pool, Node *substituteTo, Var *substituteThis);
+    bool is_redex();
 
     App *copy(Pool *pool);
 

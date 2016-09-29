@@ -26,29 +26,15 @@ Node *Var::reduce(Pool *pool) {
     return this;
 }
 
-bool Var::isredex() {
+Node *Var::substitute(Pool *pool, Node *substituteTo, Var *substituteThis) {
+    if (this == substituteThis)
+        return substituteTo->copy(pool);
+    else
+        return this;
+}
+
+bool Var::is_redex() {
     return false;
-}
-
-Node *Var::substitute(Pool *pool, int free, int who, Node *with) {
-    if (variable == who)
-        return with -> changeprior(pool, free);
-    else
-        if (variable > 0)
-            return new(pool) Var(variable - 1);
-        else return new(pool) Var(variable);
-}
-
-Node *Var::changeprior(Pool *pool, int prior, map<int, int> m) {
-    int newvar;
-    if (variable < 0)
-        newvar = variable;
-    else
-        if (m.count(variable))
-            newvar = m[variable];
-        else m[variable] = newvar = prior, prior++;
-
-    return new(pool) Var(newvar);
 }
 
 Var *Var::copy(Pool *pool) {
