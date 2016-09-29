@@ -1,13 +1,5 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-#include <streambuf>
-#include <fstream>
-#include <vector>
-#include <cstdlib>
-using namespace std;
-
 #include "Node.h"
 
 class Var : public Node {

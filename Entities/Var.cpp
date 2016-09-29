@@ -1,5 +1,6 @@
-#include "Var.h"
 #include <sstream>
+#include "Var.h"
+using namespace std;
 
 void *Var::operator new (size_t n, Pool *pool) {
     return pool -> palloc(sizeof(Var));
@@ -42,7 +43,7 @@ bool Var::is_redex() {
 }
 
 Var *Var::copy(Pool *pool) {
-    return new(pool) Var(variable);
+    return this;
 }
 
 

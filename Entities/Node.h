@@ -1,11 +1,8 @@
 #pragma once
 
-#include <list>
-#include <map>
-#include <streambuf>
-#include <fstream>
-#include <iostream>
+#include <ostream>
 #include <vector>
+#include <string>
 
 #include "../MemoryManagement/Pool.h"
 
@@ -26,7 +23,7 @@ class Node {
     public:
     string _entName;
 
-    virtual void get_expression(ostream &out, string wrapEntity = "none", Position position = _right) = 0;
+    virtual void get_expression(std::ostream &out, std::string wrapEntity = "none", Position position = _right) = 0;
     virtual std::vector<string> get_tree_view(int shift = 0) = 0;
 
     virtual Node* reduce(Pool *pool) = 0;

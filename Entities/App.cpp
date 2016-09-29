@@ -1,4 +1,5 @@
 #include "App.h"
+using namespace std;
 
 void *App::operator new (size_t n, Pool *pool) {
     return pool -> palloc(sizeof(App));

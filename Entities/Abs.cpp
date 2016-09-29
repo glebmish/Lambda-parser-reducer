@@ -1,4 +1,5 @@
 #include "Abs.h"
+using namespace std;
 
 void *Abs::operator new (size_t n, Pool *pool) {
     return pool -> palloc(sizeof(Abs));

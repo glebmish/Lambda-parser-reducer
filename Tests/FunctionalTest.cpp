@@ -1,4 +1,5 @@
 #include <istream>
+#include <fstream>
 #include <dirent.h>
 #include <vector>
 #include <string>
