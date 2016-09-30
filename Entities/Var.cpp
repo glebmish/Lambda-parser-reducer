@@ -7,10 +7,6 @@ void *Var::operator new (size_t n, Pool *pool) {
     return pool -> palloc(n);
 }
 
-void Var::operator delete(void *ptr) {
-    free(ptr);
-}
-
 void Var::get_expression(ostream &out, string wrapEntity) {
     out << variable;
 }
@@ -52,5 +48,3 @@ Var *Var::copy(Pool *pool) {
     // if it does, the same variables could became different
     return this;
 }
-
-

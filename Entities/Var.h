@@ -7,20 +7,19 @@
 #include "Node.h"
 
 class Var : public Node {
-    string variable;
+    std::string variable;
 
     public:
 
-    Var(string var): variable(var) {
+    Var(std::string var): variable(var) {
         _entName = "Var"; 
     }
 
     void *operator new (size_t n, Pool *pool);
-    void operator delete (void *ptr);
 
     // functions for visual representing of expression
-    void get_expression(ostream &out, string wrapEntity);
-    vector<string> get_tree_view(int shift);
+    void get_expression(std::ostream &out, std::string wrapEntity);
+    std::vector<std::string> get_tree_view(int shift);
 
     // reduction related functions
     Node *reduce(Pool *pool);

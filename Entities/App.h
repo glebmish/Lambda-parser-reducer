@@ -18,11 +18,10 @@ class App : public Node {
     }
 
     void *operator new (size_t n, Pool *pool);
-    void operator delete (void *ptr);
 
     // functions for visual representing of expression
-    void get_expression(ostream &out, string wrapEntity);
-    vector<string> get_tree_view(int shift = 0);
+    void get_expression(std::ostream &out, std::string wrapEntity);
+    std::vector<std::string> get_tree_view(int shift = 0);
 
     // reduction related functions
     Node *reduce(Pool *pool);
@@ -30,8 +29,6 @@ class App : public Node {
     bool is_redex();
 
     App *copy(Pool *pool);
-
-    ~App();
 };
 
 

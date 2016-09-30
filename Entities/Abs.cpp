@@ -5,10 +5,6 @@ void *Abs::operator new (size_t n, Pool *pool) {
     return pool->palloc(n);
 }
 
-void Abs::operator delete(void *ptr){
-    free(ptr);
-}
-
 void Abs::get_expression(ostream& out, string wrapEntity) {
     // when in application, abstraction should be wrapped in brackets
     // example: a (\x.x) b
@@ -75,8 +71,4 @@ bool Abs::is_redex() {
 
 Abs *Abs::copy (Pool *pool) {
     return new(pool) Abs(argument->copy(pool), function -> copy(pool));
-}
-
-Abs::~Abs() {
-    delete function;
 }

@@ -13,17 +13,17 @@ class Node {
     protected:
 
     // this sting used in tree construction. Should be the same in all Node subclasses
-    static const string _horizontalFirst, 
+    static const std::string _horizontalFirst, 
                  _horizontalSecond,
                  _vertical;
 
     public:
     // entity name (Abs, App or Var). Should be available through the base Node class
-    string _entName;
+    std::string _entName;
 
     // functions for visual representing of expression
     virtual void get_expression(std::ostream &out, std::string wrapEntity = "none") = 0;
-    virtual std::vector<string> get_tree_view(int shift = 0) = 0;
+    virtual std::vector<std::string> get_tree_view(int shift = 0) = 0;
 
     // reduction related functions
     virtual Node* reduce(Pool *pool) = 0;

@@ -5,10 +5,6 @@ void *App::operator new (size_t n, Pool *pool) {
     return pool -> palloc(n);
 }
 
-void App::operator delete(void* ptr) {
-    free(ptr);
-}
-
 void App::get_expression(ostream& out, string wrapEntity) {
     // when leftFuntion is abstraction, application should be wrapped in brackets
     // example: a ((\x.x) b) c
@@ -88,9 +84,4 @@ bool App::is_redex() {
 
 App *App::copy (Pool *pool) {
     return new(pool) App(leftFunction -> copy(pool), rightFunction -> copy(pool));
-}
-
-App::~App() {
-    delete leftFunction; 
-    delete rightFunction;
 }
