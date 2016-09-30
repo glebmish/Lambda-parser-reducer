@@ -20,8 +20,10 @@ int Tokenizer::get_pos() {
 string Tokenizer::get_variable() {
     string variable;
     int tmp = pos;
+
     while (expression[tmp] >= 'a' && expression[tmp] <= 'z')
         variable += expression[tmp++];
+    
     return variable;
 }
 
@@ -30,13 +32,17 @@ char Tokenizer::get_char() {
 }
 
 void Tokenizer::next() {
-    if (get_kind() == ENOF) return;
+    if (get_kind() == ENOF) 
+        return;
+    
     Kind kind = get_kind();
+    
     if (kind == VAR) {
         while (expression[pos] >= 'a' && expression[pos] <= 'z')
             ++pos;
-    } 
+    }
     else ++pos;
-    while(expression[pos] == ' ')
+
+    while(expression[pos] == ' ') // all spaces are ignored
         ++pos;
 }

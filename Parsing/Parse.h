@@ -11,6 +11,7 @@ using namespace std;
 #include "../Entities/App.h"
 #include "../Entities/Var.h"
 
+// exceptiond that throws in case of undefined token found
 class ParseError {
     int errorPos;
     char errorChar;
@@ -28,12 +29,14 @@ class ParseError {
     }
 };
 
-
-//L ::= {T}+
-//T ::= \x.L | (L) | x
+// Lambda calculus grammar
+// L ::= {T}+
+// T ::= \x.L | (L) | x
 
 class Parse {
     Tokenizer tokenizer;
+
+    // maps variable name to appropriate object in current context
     map<string, Var*> variableNameToObject;
 
     Node *parse_L(Pool *pool);
