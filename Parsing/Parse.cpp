@@ -1,5 +1,14 @@
 #include "Parse.h"
 
+ParseError(int errPos, char errCh, string expect): errorPos(errPos), errorChar(errCh), expected(expect) {}
+ParseError(int errPos, char errCh): errorPos(errPos), errorChar(errCh), expected("\0") {}
+
+void ParseError::print() {
+    cout << "Parse Error: Wrong character \'" << errorChar << "\' on position " << errorPos << "\n";
+    if (expected != "\0")
+        cout << '\'' << expected << "\' expected\n";
+}
+
 Tree Parse::parse() {
     Pool* pool = new Pool();
     Node *function = parse_L(pool);

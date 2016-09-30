@@ -19,14 +19,10 @@ class ParseError {
 
     public:
 
-    ParseError(int errPos, char errCh, string expect): errorPos(errPos), errorChar(errCh), expected(expect) {}
-    ParseError(int errPos, char errCh): errorPos(errPos), errorChar(errCh), expected("\0") {}
+    ParseError(int errPos, char errCh, string expect);
+    ParseError(int errPos, char errCh);
 
-    void print() {
-        cout << "Parse Error: Wrong character \'" << errorChar << "\' on position " << errorPos << "\n";
-        if (expected != "\0")
-            cout << '\'' << expected << "\' expected\n";
-    }
+    void print();
 };
 
 // Lambda calculus grammar
