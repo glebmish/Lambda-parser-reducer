@@ -1,29 +1,52 @@
-#include "Pool.h"
+#include <cstdlib>
+#include <iostream>
 
+#include "Pool.h"
+using namespace std;
+
+TooMuchBlocksException::TooMuchBlocksException(int maxB, int curB): maxBlocks(maxB), curBlocks(curB) {}
+
+void TooMuchBlocksException::print() {
+    cout << "Pool error: too much blocks allocated\n";
+    cout << "Maximum: " << maxBlocks << "   Allocated: " << curBlocks << endl;
+}
+   
 int PoolBlock::blocksInMemory = 0;
 
 PoolBlock::PoolBlock() {
     blocksInMemory++;
+
     next = NULL;
-    data = (char*) malloc(BLOCK_SIZE);
-    shift = data;
+    allocatedSpaceBegin = (char*) malloc(BLOCK_SIZE);
+    freeChunkBegin = allocatedSpaceBegin;
 }
 
 PoolBlock::~PoolBlock() {
     blocksInMemory--;
-    if (next != NULL)
-        delete next;
+    
+    delete next;
 }
 
+Pool::Pool(): currentBlock(NULL), blocksCounter(0) {}
+
 void * Pool::palloc(size_t n) {
-    if (cur == NULL || cur -> shift + n >= cur -> data + BLOCK_SIZE) {
-        blockCt++;
-        if (blockCt > MAX_BLOCKS + 1) cout << "Too much blocks\n";
+    if (currentBlock == NULL || currentBlock->freeChunkBegin + n >= currentBlock->allocatedSpaceBegin + BLOCK_SIZE) {
         PoolBlock* newBlock = new PoolBlock();
-        newBlock -> next = cur;
-        cur = newBlock;
+        ++blocksCounter;
+
+        if (blocksCounter > POOL_MAX_BLOCKS)
+            throw TooMuchBlocksException(POOL_MAX_BLOCKS, PoolBlock::blocksInMemory);
+
+        newBlock->next = currentBlock;
+        currentBlock = newBlock;
     }
-    void* res = cur -> shift;
-    cur -> shift += n;
-    return res;
+
+    void *allocatedChunk = currentBlock->freeChunkBegin;
+    currentBlock->freeChunkBegin += n;
+
+    return allocatedChunk;
+}
+
+Pool::~Pool() {
+    delete currentBlock;
 }

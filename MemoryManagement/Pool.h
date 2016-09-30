@@ -1,21 +1,30 @@
 #pragma once
 
 #include <cstddef>
-#include <cstdlib>
-#include <stack>
-#include <iostream>
-using namespace std;
 
 #define BLOCK_SIZE 128
-#define MAX_BLOCKS 2
+#define POOL_MAX_BLOCKS 16
+
+class TooMuchBlocksException {
+    int maxBlocks;
+    int curBlocks;
+
+    public:
+    TooMuchBlocksException(int maxB, int curB);
+
+    void print();
+};
 
 class PoolBlock {
     public:
+        // every new block increments this counter
+        // every deleted block decrements this counter
+        // should be 0 when deleted all parsed expressions
         static int blocksInMemory;
 
         PoolBlock* next;
-        char* shift;
-        char* data;
+        char* allocatedSpaceBegin;
+        char* freeChunkBegin;
 
         PoolBlock();
 
@@ -24,12 +33,11 @@ class PoolBlock {
 
 class Pool {
     public:
-        PoolBlock* cur;
-        int blockCt;
+        PoolBlock* currentBlock;
+        int blocksCounter;
 
-        Pool(): cur(NULL), blockCt(0) {}
+        Pool();
+        void* palloc(std::size_t n);
 
-        void* palloc(size_t n);
-
-        ~Pool() {delete cur;}
+        ~Pool();
 };

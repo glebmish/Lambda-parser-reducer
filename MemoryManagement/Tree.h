@@ -5,19 +5,19 @@
 
 class Tree {
     Pool* pool;
-    Node* tree;
+    Node* parsedExpression;
 
     public:
 
-    Tree(Pool* p, Node* n): pool(p), tree(n) {}
+    Tree(Pool* p, Node* exp): pool(p), parsedExpression(exp) {}
 
     bool is_full_pool();
     void refresh_pool();
     void clean();
-    void debug_inf();
 
-    void getexp(ostream& out);
-    void gettree(ostream& out);
+    void get_expression(std::ostream& out);
+    void get_tree_view(std::ostream& out);
+
     void reduce();
-    bool isredex();
+    bool is_redex();
 };
