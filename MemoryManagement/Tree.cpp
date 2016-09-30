@@ -1,8 +1,5 @@
-#include <string>
-#include <vector>
-using namespace std;
-
 #include "Tree.h"
+using namespace std;
 
 bool Tree::is_full_pool() {
     return pool->blocksCounter >= POOL_MAX_BLOCKS;
@@ -25,15 +22,12 @@ void Tree::clean() {
     parsedExpression = NULL;
 }
 
-void Tree::get_expression(ostream& out) {
-    parsedExpression->get_expression(out);
+string Tree::get_expression() {
+    return parsedExpression->get_expression();
 }
 
-void Tree::get_tree_view(ostream& out) {
-    vector<string> tree_view = parsedExpression->get_tree_view();
-
-    for (size_t i = 0; i < tree_view.size(); i++)
-        out << tree_view[i] << endl;
+vector<string> Tree::get_tree_view() {
+    return parsedExpression->get_tree_view();
 }
 
 void Tree::reduce() {

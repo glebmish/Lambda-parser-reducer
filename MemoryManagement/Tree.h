@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+#include <string>
+
 #include "../Entities/Node.h"
 #include "Pool.h"
 
@@ -15,8 +18,8 @@ class Tree {
 
     Tree(Pool* p, Node* exp): pool(p), parsedExpression(exp) {}
 
-    void get_expression(std::ostream& out);
-    void get_tree_view(std::ostream& out);
+    std::string get_expression();
+    std::vector<std::string> get_tree_view();
 
     void reduce();
     bool is_redex();
