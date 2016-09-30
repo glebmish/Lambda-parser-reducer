@@ -1,7 +1,7 @@
 #include "Parse.h"
 
-ParseError(int errPos, char errCh, string expect): errorPos(errPos), errorChar(errCh), expected(expect) {}
-ParseError(int errPos, char errCh): errorPos(errPos), errorChar(errCh), expected("\0") {}
+ParseError::ParseError(int errPos, char errCh, string expect): errorPos(errPos), errorChar(errCh), expected(expect) {}
+ParseError::ParseError(int errPos, char errCh): errorPos(errPos), errorChar(errCh), expected("\0") {}
 
 void ParseError::print() {
     cout << "Parse Error: Wrong character \'" << errorChar << "\' on position " << errorPos << "\n";
@@ -14,7 +14,6 @@ Tree Parse::parse() {
     Node *function = parse_L(pool);
 
     if (tokenizer.get_kind() != Tokenizer::ENOF) {
-        delete function;
         throw ParseError(tokenizer.get_pos(), tokenizer.get_char(), "\\0");
     }
 
@@ -27,19 +26,15 @@ Node *Parse::parse_L(Pool *pool) {
     if (leftFunction == NULL) 
         throw ParseError(tokenizer.get_pos(), tokenizer.get_char());
     
-    try {
-        while (tokenizer.get_kind() != Tokenizer::ENOF) {
-            Node* rightFunction = parse_T(pool);
-            
-            if (rightFunction == NULL) 
-                break;
+    while (tokenizer.get_kind() != Tokenizer::ENOF) {
+        Node* rightFunction = parse_T(pool);
 
-            leftFunction = new(pool) App(leftFunction, rightFunction);
-        }
-    } catch (ParseError error) {
-        delete leftFunction;
-        throw error;
+        if (rightFunction == NULL) 
+            break;
+
+        leftFunction = new(pool) App(leftFunction, rightFunction);
     }
+    
 
     return leftFunction;
 };
