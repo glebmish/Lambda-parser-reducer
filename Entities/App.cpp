@@ -5,18 +5,21 @@ void *App::operator new (size_t n, Pool *pool) {
     return pool -> palloc(n);
 }
 
-void App::get_expression(ostream& out, string wrapEntity) {
+string App::get_expression(string wrapEntity) {
+    string result;
+
     // when leftFuntion is abstraction, application should be wrapped in brackets
     // example: a ((\x.x) b) c
     if (leftFunction->_entName == "Abs")
-        out << '(';
+        result += '(';
 
-    leftFunction -> get_expression(out, _entName);
-    out << ' ';
-    rightFunction -> get_expression(out, _entName);
+    result += leftFunction -> get_expression(_entName) + ' ' + 
+        rightFunction -> get_expression(_entName);
     
     if (leftFunction->_entName == "Abs")
-        out << ')';
+        result += ')';
+
+    return result;
 }
 
 vector<string> App::get_tree_view(int shift) {

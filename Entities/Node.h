@@ -22,7 +22,7 @@ class Node {
     std::string _entName;
 
     // functions for visual representing of expression
-    virtual void get_expression(std::ostream &out, std::string wrapEntity = "none") = 0;
+    virtual std::string get_expression(std::string wrapEntity = "none") = 0;
     virtual std::vector<std::string> get_tree_view(int shift = 0) = 0;
 
     // reduction related functions

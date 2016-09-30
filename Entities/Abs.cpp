@@ -5,20 +5,21 @@ void *Abs::operator new (size_t n, Pool *pool) {
     return pool->palloc(n);
 }
 
-void Abs::get_expression(ostream& out, string wrapEntity) {
+string Abs::get_expression(string wrapEntity) {
+    string result;
+
     // when in application, abstraction should be wrapped in brackets
     // example: a (\x.x) b
     if (wrapEntity == "App") 
-        out << '(';
+        result += '(';
     
-    out << '\\';
-    argument->get_expression(out, _entName);
-    out << '.';
-    
-    function -> get_expression(out, _entName);
+    result += '\\' + argument->get_expression(_entName) + 
+        '.' + function -> get_expression(_entName);
     
     if (wrapEntity == "App")
-        out << ')';
+        result += ')';
+
+    return result;
 }
 
 vector<string> Abs::get_tree_view(int shift) {

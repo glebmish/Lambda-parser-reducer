@@ -18,7 +18,7 @@ class Var : public Node {
     void *operator new (size_t n, Pool *pool);
 
     // functions for visual representing of expression
-    void get_expression(std::ostream &out, std::string wrapEntity);
+    std::string get_expression(std::string wrapEntity);
     std::vector<std::string> get_tree_view(int shift);
 
     // reduction related functions

@@ -7,8 +7,8 @@ void *Var::operator new (size_t n, Pool *pool) {
     return pool -> palloc(n);
 }
 
-void Var::get_expression(ostream &out, string wrapEntity) {
-    out << variable;
+string Var::get_expression(string wrapEntity) {
+    return variable;
 }
 
 vector<string> Var::get_tree_view(int shift) {
