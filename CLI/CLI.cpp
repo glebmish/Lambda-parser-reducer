@@ -2,23 +2,28 @@
 #include <string>
 
 #include "CLI.h"
+#include "../Logger/Logger.h"
 #include "../Parsing/Parse.h"
 using namespace std;
 
 void get_next_command(string &command, string &last_command, Tree *&parsed_expression, Tree *&last_parsed_expression) {
     cin >> command;
     
+    // '.' means to repeat last inputed command
     if (command == ".") {
         command = last_command;
         parsed_expression = last_parsed_expression;
         return;
     }
-   last_command = command;
+    last_command = command;
 
     string expression;
+    
+    // to skip leading whitespaces
     cin >> std::ws;
     getline(cin, expression);
 
+    // '.' means to apply command to last inputed expression
     if (expression == ".") {
         parsed_expression = last_parsed_expression;
         return;
@@ -26,6 +31,7 @@ void get_next_command(string &command, string &last_command, Tree *&parsed_expre
 
     parsed_expression = Parse(expression).parse();
 
+    // to avoid memory leak
     delete last_parsed_expression;
     last_parsed_expression = parsed_expression;
 }
@@ -52,6 +58,7 @@ void process(string &command, Tree *parsed_expression) {
         cout << reductionsCounter << " reductions";
     }
 
+    // print every step of reduction
     else if (command == "steps") {
         int reductionsCounter = 0;
 
@@ -89,7 +96,8 @@ void cli(ostream &log) {
             e.print();
             continue;
         }
-                   
+
+        // parsed_expression == NULL only if "." or "<command> ." were inputed before any other
         if (parsed_expression == NULL) {
             cout << "error: there is no previous command\n";
             continue;
