@@ -9,14 +9,15 @@ string App::get_expression(string wrapEntity) {
     string result;
 
     // when leftFuntion is abstraction, application should be wrapped in brackets
+    // but if it's the most outter function, it shouldn't
     // example: a ((\x.x) b) c
-    if (leftFunction->_entName == "Abs")
+    if (wrapEntity != "none" && leftFunction->_entName == "Abs")
         result += '(';
 
     result += leftFunction -> get_expression(_entName) + ' ' + 
         rightFunction -> get_expression(_entName);
     
-    if (leftFunction->_entName == "Abs")
+    if (wrapEntity != "none" && leftFunction->_entName == "Abs")
         result += ')';
 
     return result;
