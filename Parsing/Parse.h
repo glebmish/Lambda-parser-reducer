@@ -44,5 +44,5 @@ class Parse {
     public:
     Parse(string expression): tokenizer(expression) {}
 
-    Tree parse();
+    Tree *parse();
 };

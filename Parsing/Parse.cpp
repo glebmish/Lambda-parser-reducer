@@ -9,7 +9,7 @@ void ParseError::print() {
         cout << '\'' << expected << "\' expected\n";
 }
 
-Tree Parse::parse() {
+Tree *Parse::parse() {
     Pool* pool = new Pool();
     Node *function = parse_L(pool);
 
@@ -17,7 +17,7 @@ Tree Parse::parse() {
         throw ParseError(tokenizer.get_pos(), tokenizer.get_char(), "\\0");
     }
 
-    return Tree(pool, function);
+    return new Tree(pool, function);
 }
 
 Node *Parse::parse_L(Pool *pool) {
