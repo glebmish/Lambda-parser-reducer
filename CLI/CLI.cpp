@@ -17,6 +17,13 @@ void get_next_command(string &command, string &last_command, Tree *&parsed_expre
     }
     last_command = command;
 
+    // exit command used without expression
+    // thus, the function should be terminated now
+    if (command == "exit") {
+        parsed_expression = last_parsed_expression;
+        return;
+    }
+
     string expression;
     
     // to skip leading whitespaces
@@ -96,6 +103,10 @@ void cli(ostream &log) {
             e.print();
             continue;
         }
+
+        // that way, there's no need to check parsed_expression on NULL and process any commands
+        if (command == "exit")
+            continue;
 
         // parsed_expression == NULL only if "." or "<command> ." were inputed before any other
         if (parsed_expression == NULL) {
