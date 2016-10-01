@@ -23,6 +23,11 @@ class PoolBlock {
         static int blocksInMemory;
 
         PoolBlock* next;
+        // [abcd....] - all alocated space (letters means filled chunks)
+        //  ^   ^
+        //  |   \_ freeChunkBegin
+        //  |
+        //  allocatedSpaceBegin
         char* allocatedSpaceBegin;
         char* freeChunkBegin;
 

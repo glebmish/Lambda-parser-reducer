@@ -30,6 +30,7 @@ PoolBlock::~PoolBlock() {
 Pool::Pool(): currentBlock(NULL), blocksCounter(0) {}
 
 void * Pool::palloc(size_t n) {
+    // check if it's enough space in current block for new chunk
     if (currentBlock == NULL || currentBlock->freeChunkBegin + n >= currentBlock->allocatedSpaceBegin + BLOCK_SIZE) {
         PoolBlock* newBlock = new PoolBlock();
         ++blocksCounter;
