@@ -40,3 +40,7 @@ void Tree::reduce() {
 bool Tree::is_redex() {
     return parsedExpression->is_redex();
 }
+
+Tree::~Tree() {
+    delete pool;
+}

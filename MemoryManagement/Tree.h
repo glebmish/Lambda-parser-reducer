@@ -23,4 +23,6 @@ class Tree {
 
     void reduce();
     bool is_redex();
+
+    ~Tree();
 };
