@@ -2,7 +2,6 @@
 #include <string>
 
 #include "CLI.h"
-#include "../Logger/Logger.h"
 #include "../Parsing/Parse.h"
 using namespace std;
 
@@ -87,7 +86,7 @@ void process(string &command, Tree *parsed_expression) {
     cout << endl;
 }
 
-void cli(ostream &log) {
+void cli() {
     string command = "";
 
     string last_command = "";
