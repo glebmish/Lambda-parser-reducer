@@ -68,8 +68,11 @@ Only the lambda expression
 * answer
 
 Desired expression view
+
 Desired tree view
+
 'empty line'
+
 Desired reduction steps (expression views of each step)
 
 Example:
