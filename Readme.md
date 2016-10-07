@@ -28,7 +28,7 @@ git clone https://github.com/glebmish/Lambda-parser-reducer
 To run execute
 ```
 make
-./lbr.out
+./lpr.o
 ```
 
 That's all. Now you can use the programm.
