@@ -59,12 +59,14 @@ Without extensions are test input, with .ans extension are right answers
 
 Format of files:
 * input
+
 Only the lambda expression
 ```
 \x.x
 ```
 
 * answer
+
 Desired expression view
 Desired tree view
 'empty line'
