@@ -1,1 +1,1 @@
-a ((\x.x \u.x x) (y y y))
+(\a.a \m.\n.n \m.\n.m) \m.\n.n

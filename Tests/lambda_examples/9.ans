@@ -1,0 +1,17 @@
+(\x.\y.x y y x) y
+App/-- Abs/-- x 0x23fedd0 
+   |      |
+   |      \__ Abs/-- y 0x23fede8 
+   |             |
+   |             \__ App/-- App/-- App/-- x 0x23fedd0 
+   |                    |      |      |
+   |                    |      |      \__ y 0x23fede8 
+   |                    |      |
+   |                    |      \__ y 0x23fede8 
+   |                    |
+   |                    \__ x 0x23fedd0 
+   |
+   \__ y 0x23feec0 
+
+(\x.\y.x y y x) y
+\y.y y y y

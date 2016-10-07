@@ -1,0 +1,21 @@
+a ((\x.x (\u.x x)) y y y)
+App/-- a 0x23fe310 
+   |
+   \__ App/-- Abs/-- x 0x23fe328 
+          |      |
+          |      \__ App/-- x 0x23fe328 
+          |             |
+          |             \__ Abs/-- u 0x23fe340 
+          |                    |
+          |                    \__ App/-- x 0x23fe328 
+          |                           |
+          |                           \__ x 0x23fe328 
+          |
+          \__ App/-- App/-- y 0x23fe400 
+                 |      |
+                 |      \__ y 0x23fe550 
+                 |
+                 \__ y 0x23fe588 
+
+a ((\x.x (\u.x x)) y y y)
+a y y y (\u.y y y y y y)

@@ -1,0 +1,12 @@
+\x.\y.x y s
+Abs/-- x 0x12f11b0 
+   |
+   \__ Abs/-- y 0x12f11c8 
+          |
+          \__ App/-- App/-- x 0x12f11b0 
+                 |      |
+                 |      \__ y 0x12f11c8 
+                 |
+                 \__ s 0x12f1200 
+
+\x.\y.x y s

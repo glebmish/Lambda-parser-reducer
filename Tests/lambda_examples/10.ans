@@ -1,0 +1,20 @@
+(\f.\x.f x) (\f.\x.f x)
+App/-- Abs/-- f 0x23ff100 
+   |      |
+   |      \__ Abs/-- x 0x23ff118 
+   |             |
+   |             \__ App/-- f 0x23ff100 
+   |                    |
+   |                    \__ x 0x23ff118 
+   |
+   \__ Abs/-- f 0x23ff1b0 
+          |
+          \__ Abs/-- x 0x23ff1c8 
+                 |
+                 \__ App/-- f 0x23ff1b0 
+                        |
+                        \__ x 0x23ff1c8 
+
+(\f.\x.f x) (\f.\x.f x)
+\x.((\f.\x.f x) x)
+\x.\x.x x
