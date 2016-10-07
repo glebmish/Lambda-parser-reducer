@@ -54,11 +54,11 @@ Node *Parse::parse_lambda(Pool *pool) {
     // it will be saved to outterArgument variable
     // and restored later
     Var *outterArgument = NULL;
-    if (variableNameToObject.count(variable))
-        outterArgument = variableNameToObject[variable];
+    if (variable_name_to_object.count(variable))
+        outterArgument = variable_name_to_object[variable];
 
     Var *argument = new(pool) Var(variable);
-    variableNameToObject[variable] = argument;
+    variable_name_to_object[variable] = argument;
     
     tokenizer.next();
     
@@ -75,9 +75,9 @@ Node *Parse::parse_lambda(Pool *pool) {
     // restore outter argument with the same name
     // or delete current argument name frome names set
     if (outterArgument != NULL)
-        variableNameToObject[variable] = outterArgument;
+        variable_name_to_object[variable] = outterArgument;
     else
-        variableNameToObject.erase(variable);
+        variable_name_to_object.erase(variable);
 
     return new(pool) Abs(argument, function);
 }
@@ -92,8 +92,8 @@ Node *Parse::parse_variable(Pool *pool) {
 
     // if there's variable with this name in the variables set
     // return if, else create new variable
-    if (variableNameToObject.count(variable))
-        return variableNameToObject[variable];
+    if (variable_name_to_object.count(variable))
+        return variable_name_to_object[variable];
     else 
         return new(pool) Var(variable);
 }
@@ -105,7 +105,7 @@ Node *Parse::parse_brackets(Pool *pool) {
     
     // should be this token:
     // ( a )
-    //       ^
+    //     ^
     if (tokenizer.get_kind() != Tokenizer::CBRACKET) 
         throw ParseError(tokenizer.get_pos(), tokenizer.get_char(), ")");
 

@@ -33,7 +33,7 @@ class Parse {
     Tokenizer tokenizer;
 
     // maps variable name to appropriate object in current context
-    map<string, Var*> variableNameToObject;
+    map<string, Var*> variable_name_to_object;
 
     Node *parse_L(Pool *pool);
     Node *parse_T(Pool *pool);
