@@ -35,7 +35,8 @@ bool check_get_tree_view(Tree *parsed_expression, vector<string> right_answer) {
                got_str_wo_adress = *got_it;
 
         size_t ans_address_position = ans_it->find("0x"),
-            got_address_position = got_it->find("0x");
+               got_address_position = got_it->find("0x");
+
         if (ans_address_position != string::npos && got_address_position != string::npos) {
             string ans_var_adress = ans_it->substr(ans_address_position), 
                    got_var_adress = got_it->substr(got_address_position);
@@ -144,7 +145,7 @@ vector<string> get_tests_files(string tests_dir) {
 
 	while ((ent = readdir(dir)) != NULL) {
 		string tmp(ent->d_name);
-		if (tmp[0] == '.' || tmp[tmp.size() - 2] == '.') 
+		if (tmp[0] == '.' || tmp[tmp.size() - 4] == '.') 
 			continue;
         
 		inputFiles.push_back(tmp);
@@ -161,9 +162,7 @@ bool cmp(string a, string b) {
 int main() {
     string tests_dir("./Tests/lambda_examples/");
 
-    //vector<string> testList = get_tests_files(tests_dir);
-    vector<string> testList;
-    testList.push_back("1");
+    vector<string> testList = get_tests_files(tests_dir);
     sort(testList.begin(), testList.end(), cmp);
     
     for (unsigned i = 0; i < testList.size(); i++) {
