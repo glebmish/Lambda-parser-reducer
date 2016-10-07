@@ -60,10 +60,10 @@ Node *App::reduce(Pool *pool) {
         return leftFunction->substitute(pool, rightFunction);
     } else {
         // this if used to ensure that it will be only one reduction at a time
-        if (rightFunction->is_redex())
-            return new(pool) App(leftFunction->copy(pool), rightFunction->reduce(pool));
-        else
+        if (leftFunction->is_redex())
             return new(pool) App(leftFunction->reduce(pool), rightFunction->copy(pool));
+        else
+            return new(pool) App(leftFunction->copy(pool), rightFunction->reduce(pool));
     }
 }
 
